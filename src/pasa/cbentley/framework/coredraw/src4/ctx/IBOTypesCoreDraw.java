@@ -4,9 +4,8 @@
  */
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
-public interface IEventsCoreDraw {
+import pasa.cbentley.byteobjects.src4.ctx.IBOTypesBOC;
 
-   public static final int SETTINGS_0_ALL   = 0;
+public interface IBOTypesCoreDraw extends IBOTypesBOC {
 
-   public static final int SETTINGS_1_ALIAS = 1;
 }

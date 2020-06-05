@@ -1,9 +1,15 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public interface IImageFactory {
+import pasa.cbentley.core.src4.logging.IStringable;
+
+public interface IImageFactory extends IStringable {
    /**
     * Create an image from a byte array
     * @param data

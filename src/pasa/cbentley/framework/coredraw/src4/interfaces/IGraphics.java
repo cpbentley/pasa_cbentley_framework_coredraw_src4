@@ -1,3 +1,7 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 import pasa.cbentley.core.src4.logging.IStringable;
@@ -152,7 +156,7 @@ public interface IGraphics extends IStringable {
     * @return
     */
    public boolean hasFeatureEnabled(int featureID);
-   
+
    /**
     * Is the feature enable for this specific {@link IGraphics} instance
     * 
@@ -164,13 +168,28 @@ public interface IGraphics extends IStringable {
     * @return true if feature could be enabled
     */
    public boolean featureEnable(int featureID, boolean enable);
-   
+
    public abstract void setClip(int x, int y, int width, int height);
 
+   /**
+    * 
+    * @param RGB
+    */
    public abstract void setColor(int RGB);
 
+   /**
+    * 
+    * @param red
+    * @param green
+    * @param blue
+    */
    public abstract void setColor(int red, int green, int blue);
 
+   /**
+    * Sets the {@link IMFont} that will be used when drawing String
+    * @param font
+    * @throws NullPointerException when null
+    */
    public abstract void setFont(IMFont font);
 
    public abstract void setGrayScale(int v);

@@ -1,3 +1,7 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 import pasa.cbentley.core.src4.logging.IStringable;
@@ -80,8 +84,6 @@ public interface IFontFactory extends IStringable {
     */
    public int getFontFaceID(String string);
 
-   public String getFontName();
-
    public String[] getFontNames();
 
    /**
@@ -90,6 +92,11 @@ public interface IFontFactory extends IStringable {
     */
    public int[] getFontPoints();
 
+   /**
+    * {@link ITechFont#SIZE_1_TINY}
+    * @param size
+    * @return
+    */
    public int getFontPoint(int size);
 
    public int getFontPointExtraShift();

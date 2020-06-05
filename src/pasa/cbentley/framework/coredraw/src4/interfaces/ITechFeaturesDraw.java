@@ -1,4 +1,10 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
+
+import pasa.cbentley.core.src4.interfaces.ITech;
 
 /**
  * Tech parameters for {@link IGraphics}
@@ -6,7 +12,7 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
  * @author Charles Bentley
  *
  */
-public interface ITechDrawFeatures {
+public interface ITechFeaturesDraw extends ITech {
 
    /**
     * Fonts can be changed by name

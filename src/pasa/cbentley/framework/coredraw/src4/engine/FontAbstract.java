@@ -1,6 +1,14 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.engine;
 
+import pasa.cbentley.core.src4.ctx.UCtx;
+import pasa.cbentley.core.src4.logging.Dctx;
+import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.ctx.ToStringStaticCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 
 /**
@@ -17,9 +25,9 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
  */
 public abstract class FontAbstract implements IMFont {
 
-   protected int                face, style, size;
-
    protected final CoreDrawCtx cac;
+
+   protected int               face, style, size;
 
    protected FontAbstract(CoreDrawCtx cac) {
       this.cac = cac;
@@ -28,23 +36,26 @@ public abstract class FontAbstract implements IMFont {
 
    protected FontAbstract(CoreDrawCtx cac, int face, int style, int size) {
       this.cac = cac;
+      this.face = face;
+      this.style = style;
+      this.size = size;
    }
-
-   public abstract int charWidth(char c);
 
    public abstract int charsWidth(char[] c, int ofs, int len);
 
+   public abstract int charWidth(char c);
+
+   /**
+    * J2ME?
+    * @return
+    */
    public abstract int getBaselinePosition();
-
-   public abstract int getHeight();
-
-   public abstract int stringWidth(String s);
-
-   public abstract int substringWidth(String s, int offset, int length);
 
    public int getFace() {
       return face;
    }
+
+   public abstract int getHeight();
 
    public int getSize() {
       return size;
@@ -58,10 +69,6 @@ public abstract class FontAbstract implements IMFont {
       return (style & IMFont.STYLE_BOLD) != 0;
    }
 
-   public boolean isUnderlined() {
-      return (style & IMFont.STYLE_UNDERLINED) != 0;
-   }
-
    public boolean isItalic() {
       return (style & IMFont.STYLE_ITALIC) != 0;
    }
@@ -69,4 +76,48 @@ public abstract class FontAbstract implements IMFont {
    public boolean isPLAIN() {
       return style == 0;
    }
+
+   public boolean isUnderlined() {
+      return (style & IMFont.STYLE_UNDERLINED) != 0;
+   }
+
+   public abstract int stringWidth(String s);
+
+   public abstract int substringWidth(String s, int offset, int length);
+
+   //#mdebug
+   public IDLog toDLog() {
+      return toStringGetUCtx().toDLog();
+   }
+
+   public String toString() {
+      return Dctx.toString(this);
+   }
+
+   public void toString(Dctx dc) {
+      dc.root(this, FontAbstract.class, "@line5");
+      toStringPrivate(dc);
+   }
+
+   public String toString1Line() {
+      return Dctx.toString1Line(this);
+   }
+
+   private void toStringPrivate(Dctx dc) {
+      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.fontFace(face));
+      dc.appendVarWithSpace("size", ToStringStaticCoreDraw.debugFontSize(size));
+      dc.appendVarWithSpace("style", ToStringStaticCoreDraw.debugFontStyle(style));
+   }
+
+   public void toString1Line(Dctx dc) {
+      dc.root1Line(this, FontAbstract.class);
+      toStringPrivate(dc);
+   }
+
+   public UCtx toStringGetUCtx() {
+      return cac.getUCtx();
+   }
+
+   //#enddebug
+
 }

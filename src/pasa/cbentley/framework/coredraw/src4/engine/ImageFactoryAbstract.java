@@ -7,49 +7,49 @@ package pasa.cbentley.framework.coredraw.src4.engine;
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
-import pasa.cbentley.core.src4.logging.IStringable;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IImageFactory;
 
-public class AbstractDrawTemplate implements IStringable {
-   
+public abstract class ImageFactoryAbstract implements IImageFactory {
+
    protected final CoreDrawCtx cdc;
 
-   protected AbstractDrawTemplate(CoreDrawCtx cdc) {
+   public ImageFactoryAbstract(CoreDrawCtx cdc) {
       this.cdc = cdc;
    }
    
-   public CoreDrawCtx getCDC() {
-      return cdc;
+   //#mdebug
+   public IDLog toDLog() {
+      return toStringGetUCtx().toDLog();
    }
 
-   //#mdebug
    public String toString() {
       return Dctx.toString(this);
    }
-   
-   public IDLog toDLog() {
-      return cdc.toDLog();
-   }
- 
-   public IDLog toLog() {
-      return cdc.toDLog();
-   }
 
    public void toString(Dctx dc) {
-      dc.root(this, "AbstractUITemplate");
-   }
-
-   public UCtx toStringGetUCtx() {
-      return cdc.getUCtx();
+      dc.root(this, ImageFactoryAbstract.class, "@line5");
+      toStringPrivate(dc);
    }
 
    public String toString1Line() {
       return Dctx.toString1Line(this);
    }
 
-   public void toString1Line(Dctx dc) {
-      dc.root1Line(this, "AbstractUITemplate");
+   private void toStringPrivate(Dctx dc) {
+
    }
+
+   public void toString1Line(Dctx dc) {
+      dc.root1Line(this, ImageFactoryAbstract.class);
+      toStringPrivate(dc);
+   }
+
+   public UCtx toStringGetUCtx() {
+      return cdc.getUCtx();
+   }
+
    //#enddebug
+   
 
 }

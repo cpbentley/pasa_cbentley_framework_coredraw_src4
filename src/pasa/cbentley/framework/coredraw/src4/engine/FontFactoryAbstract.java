@@ -1,3 +1,7 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.engine;
 
 import pasa.cbentley.core.src4.ctx.UCtx;
@@ -9,7 +13,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
-public abstract class AbstractFontFactory implements IFontFactory, ITechFont {
+public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
 
    public IntToStrings customFonts;
 
@@ -32,8 +36,8 @@ public abstract class AbstractFontFactory implements IFontFactory, ITechFont {
 
    protected IMFont     z_refFontDebug;
 
-   public AbstractFontFactory(CoreDrawCtx cac) {
-      this.cdc = cac;
+   public FontFactoryAbstract(CoreDrawCtx cdc) {
+      this.cdc = cdc;
 
    }
 
@@ -79,8 +83,9 @@ public abstract class AbstractFontFactory implements IFontFactory, ITechFont {
    }
 
    public IMFont getDefaultFont() {
-      if (z_refFont == null)
+      if (z_refFont == null) {
          z_refFont = getFont(IMFont.FACE_SYSTEM, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+      }
       return z_refFont;
    }
 

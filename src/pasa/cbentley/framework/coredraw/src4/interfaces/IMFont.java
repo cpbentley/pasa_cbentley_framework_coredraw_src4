@@ -1,4 +1,10 @@
+/*
+ * (c) 2018-2020 Charles-Philip Bentley
+ * This code is licensed under MIT license (see LICENSE.txt for details)
+ */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
+
+import pasa.cbentley.core.src4.logging.IStringable;
 
 /**
  * Font interface for the Bentley framework.
@@ -24,7 +30,7 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
  * @author Charles Bentley
  *
  */
-public interface IMFont extends ITechFont {
+public interface IMFont extends ITechFont, IStringable {
 
    public int charsWidth(char[] c, int ofs, int len);
 
