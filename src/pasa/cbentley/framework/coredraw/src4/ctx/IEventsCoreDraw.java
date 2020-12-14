@@ -4,7 +4,15 @@
  */
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
-public interface IEventsCoreDraw {
+import pasa.cbentley.core.src4.interfaces.IEvents;
+
+/**
+ * Definition for {@link CoreDrawCtx} of events following the {@link IEvents} framework.
+ * 
+ * @author Charles Bentley
+ *
+ */
+public interface IEventsCoreDraw extends IEvents {
 
    public static final int SETTINGS_0_ALL   = 0;
 

@@ -25,7 +25,7 @@ public interface IFontFactory extends IStringable {
    public VisualState fontSizeIncrease();
 
    /**
-    * 
+    * Call this for the default size.
     * @return
     */
    public IMFont getDefaultFont();
@@ -75,6 +75,10 @@ public interface IFontFactory extends IStringable {
     */
    public IMFont getFont(String face, int style, int fontPoint);
 
+   /**
+    * The {@link IMFont} used for debugging message on screen.
+    * @return
+    */
    public IMFont getFontDebug();
 
    /**
@@ -84,23 +88,54 @@ public interface IFontFactory extends IStringable {
     */
    public int getFontFaceID(String string);
 
+   /**
+    * The Font names available to this {@link IFontFactory}
+    * @return
+    */
    public String[] getFontNames();
 
    /**
-    * The font point values
+    * The Font Families available to this {@link IFontFactory}
+    * @return
+    */
+   public String[] getFontFamilies();
+
+   /**
+    * The font point values associated to logical sizes
+    * <li>{@link ITechFont#SIZE_0_DEFAULT}
+    * <li>{@link ITechFont#SIZE_1_TINY}
+    * <li>{@link ITechFont#SIZE_2_SMALL}
+    * <li>{@link ITechFont#SIZE_3_MEDIUM}
+    * <li>{@link ITechFont#SIZE_4_LARGE}
+    * <li>{@link ITechFont#SIZE_5_HUGE}
     * @return
     */
    public int[] getFontPoints();
 
    /**
-    * {@link ITechFont#SIZE_1_TINY}
+    * Matches size argument 
+    * <li>{@link ITechFont#SIZE_1_TINY}
+    * <li>{@link ITechFont#SIZE_2_SMALL}
+    * <li>{@link ITechFont#SIZE_3_MEDIUM}
+    * <li>{@link ITechFont#SIZE_4_LARGE}
+    * <li>{@link ITechFont#SIZE_5_HUGE}
+    * 
     * @param size
     * @return
     */
    public int getFontPoint(int size);
 
+   /**
+    * 
+    * @return
+    */
    public int getFontPointExtraShift();
 
+   /**
+    * 
+    * @param size
+    * @return
+    */
    public float getFontScale(int size);
 
    /**
@@ -113,14 +148,11 @@ public interface IFontFactory extends IStringable {
     */
    public IMFont getFontScaled(int sizeHint, int w, int h);
 
-   /**
-    * Look up in the ressources for the font.
-    * returns Face ID or -1 if not found
-    * @param string
-    * @return
-    */
-   public int loadCustomFont(String string);
 
+   /**
+    * 
+    * @param name
+    */
    public void setFontName(String name);
 
    /**
@@ -128,4 +160,6 @@ public interface IFontFactory extends IStringable {
     * the method returns
     */
    public void setFontRatio(int ratio, int etalon);
+
+
 }

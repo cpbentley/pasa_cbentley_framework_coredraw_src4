@@ -16,7 +16,7 @@ public interface ITechFont {
    public static final int FACE_PROPORTIONAL = 64;
 
    /**
-    * Font Face
+    * Font Face depends on the system. Should not be used for consistent across platforms
     */
    public static final int FACE_SYSTEM       = 0;
 

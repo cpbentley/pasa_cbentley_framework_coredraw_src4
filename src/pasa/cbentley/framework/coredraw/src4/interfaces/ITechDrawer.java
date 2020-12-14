@@ -27,19 +27,4 @@ public interface ITechDrawer extends ITechByteObject {
 
    public static final int DRAWER_OFFSET_01_FLAG1           = A_OBJECT_BASIC_SIZE;
 
-   /**
-    * When has it, underlying pipeline uses OpenGL
-    */
-   public static final int SUP_ID_03_OPEN_GL                = 3;
-
-   /**
-    * support the aliasing of draw
-    */
-   public static final int SUP_ID_04_ALIAS                  = 4;
-
-   /**
-    * All but J2ME
-    */
-   public static final int SUP_ID_10_TRANSPARENT_BACKGROUND = 10;
-
 }

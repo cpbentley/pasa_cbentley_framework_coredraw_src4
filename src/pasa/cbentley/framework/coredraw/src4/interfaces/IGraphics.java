@@ -6,53 +6,7 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 import pasa.cbentley.core.src4.logging.IStringable;
 
-public interface IGraphics extends IStringable {
-
-   /**
-    * When {@link IGraphics} has this flag, it is anti aliased.
-    * <br>
-    * In Android, its an easy flag on the Paint object.
-    * <br>
-    * <br>
-    * Link to the
-    * {@link IModSetAppli#MODSET_APP_OFFSET_08_ANTI_ALIAS1}
-    * <br>
-    * Also when creating an image, user may decide to remove alias, if it is on by default.
-    */
-   public static final int IMPL_FLAG_1_ANTI_ALIAS       = 1 << 0;
-
-   /**
-    * When has it, underlying pipeline uses OpenGL
-    */
-   public static final int IMPL_FLAG_2_OPEN_GL          = 1 << 1;
-
-   /**
-    * Used by Bentley framework to check if Host supports clear pixel images.
-    */
-   public static final int IMPL_FLAG_3_TRANS_BACKGROUND = 1 << 2;
-
-   /**
-    * Explicitely force the absence of alias
-    */
-   public static final int IMPL_FLAG_4_NO_ALIAS         = 1 << 3;
-
-   public static final int BASELINE                     = 64;
-
-   public static final int BOTTOM                       = 32;
-
-   public static final int DOTTED                       = 1;
-
-   public static final int HCENTER                      = 1;
-
-   public static final int LEFT                         = 4;
-
-   public static final int RIGHT                        = 8;
-
-   public static final int SOLID                        = 0;
-
-   public static final int TOP                          = 16;
-
-   public static final int VCENTER                      = 2;
+public interface IGraphics extends IStringable, ITechGraphics {
 
    /**
     * Intersects the current clip with the specified rectangle. 
@@ -69,6 +23,13 @@ public interface IGraphics extends IStringable {
 
    public abstract void drawArc(int x, int y, int w, int h, int sa, int aa);
 
+   /**
+    * Draws the character at x,y using 
+    * @param character
+    * @param x
+    * @param y
+    * @param anchor
+    */
    public abstract void drawChar(char character, int x, int y, int anchor);
 
    public abstract void drawChars(char[] data, int offset, int length, int x, int y, int anchor);
@@ -148,9 +109,9 @@ public interface IGraphics extends IStringable {
    /**
     * Is the feature enable for this specific {@link IGraphics} instance
     * 
-    * <li> {@link ITechDrawer#SUP_ID_03_OPEN_GL}
-    * <li> {@link ITechDrawer#SUP_ID_04_ALIAS}
-    * <li> {@link ITechDrawer#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID
     * @return
@@ -160,9 +121,9 @@ public interface IGraphics extends IStringable {
    /**
     * Is the feature enable for this specific {@link IGraphics} instance
     * 
-    * <li> {@link ITechDrawer#SUP_ID_03_OPEN_GL}
-    * <li> {@link ITechDrawer#SUP_ID_04_ALIAS}
-    * <li> {@link ITechDrawer#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID
     * @return true if feature could be enabled

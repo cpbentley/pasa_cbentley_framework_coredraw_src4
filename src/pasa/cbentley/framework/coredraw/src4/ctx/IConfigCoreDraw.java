@@ -21,7 +21,7 @@ public interface IConfigCoreDraw extends IConfigBO {
     * @return when null, hardcoded points are used
     */
    public int[] getFontPoints();
-   
+
    /**
     * <li> {@link ITechDrawer#MODSET_APP_ALIAS_0_BEST}
     * <li> {@link ITechDrawer#MODSET_APP_ALIAS_1_ON}
@@ -29,7 +29,9 @@ public interface IConfigCoreDraw extends IConfigBO {
     * @return
     */
    public int getAliasMode();
-   
+
+   public int getAliasModeText();
+
    /**
     * The color used by default when creating an empty image with an unspecified background color
     * @return

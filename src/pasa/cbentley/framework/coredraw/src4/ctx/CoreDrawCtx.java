@@ -11,6 +11,7 @@ import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
 import pasa.cbentley.byteobjects.src4.ctx.IEventsBO;
 import pasa.cbentley.core.src4.ctx.ICtx;
 import pasa.cbentley.core.src4.event.BusEvent;
+import pasa.cbentley.core.src4.interfaces.IFeaturable;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
@@ -35,7 +36,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
  * @author Charles Bentley
  *
  */
-public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCoreDraw, ITechFeaturesDraw {
+public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCoreDraw, ITechFeaturesDraw, IFeaturable {
 
    protected final IConfigCoreDraw configDraw;
 
@@ -106,6 +107,7 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
    protected void matchConfig(IConfigBO config, ByteObject settings) {
       IConfigCoreDraw configDraw = (IConfigCoreDraw) config;
       settings.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, configDraw.getAliasMode());
+      settings.set1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1, configDraw.getAliasModeText());
    }
 
    /**

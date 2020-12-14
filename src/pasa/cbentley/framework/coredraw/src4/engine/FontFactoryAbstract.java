@@ -13,11 +13,21 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
+/**
+ * Template src4 implementation of the {@link IFontFactory}
+ * 
+ * Uses a cache of {@link IMFont}, which in turn allow Factory wide increase/decrease
+ * 
+ * Assume we don't have access to custom fonts. Custom fonts is the job of {@link FontCustomizerAbstract}
+ * 
+ * @author Charles Bentley
+ *
+ */
 public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
 
-   public IntToStrings customFonts;
-
    protected final CoreDrawCtx cdc;
+
+   public IntToStrings         customFonts;
 
    /**
     * In some frameworks like J2ME and android, font points are not used
@@ -30,11 +40,15 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
     * <li> Style ID
     * <li> Size IDs
     */
-   private IMFont[][][] fonts = new IMFont[3][4][5];
+   private IMFont[][][]        fonts      = new IMFont[3][4][5];
 
-   protected IMFont     z_refFont;
+   protected IMFont            fontDef;
 
-   protected IMFont     z_refFontDebug;
+   protected IMFont            z_refFontDebug;
+
+   private IMFont              fontDefMono;
+
+   private IMFont              fontDefProp;
 
    public FontFactoryAbstract(CoreDrawCtx cdc) {
       this.cdc = cdc;
@@ -43,7 +57,7 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
 
    public void clearFontCache() {
       z_refFontDebug = null;
-      z_refFont = null;
+      fontDef = null;
       for (int i = 0; i < fonts.length; i++) {
          for (int j = 0; j < fonts[i].length; j++) {
             for (int k = 0; k < fonts[i][j].length; k++) {
@@ -83,10 +97,24 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
    }
 
    public IMFont getDefaultFont() {
-      if (z_refFont == null) {
-         z_refFont = getFont(IMFont.FACE_SYSTEM, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+      if (fontDef == null) {
+         fontDef = getFont(IMFont.FACE_SYSTEM, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
       }
-      return z_refFont;
+      return fontDef;
+   }
+
+   public IMFont getDefaultFontMono() {
+      if (fontDefMono == null) {
+         fontDefMono = getFont(IMFont.FACE_MONOSPACE, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+      }
+      return fontDefMono;
+   }
+
+   public IMFont getDefaultFontProportional() {
+      if (fontDefProp == null) {
+         fontDefProp = getFont(IMFont.FACE_PROPORTIONAL, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+      }
+      return fontDefProp;
    }
 
    /**
@@ -165,6 +193,10 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
       return -1;
    }
 
+   public void loadFont(String path) {
+      throw new RuntimeException("Implement in a subclass. otherwise method cannot be called");
+   }
+
    public void setFontFromCache(int face, int style, int size, IMFont font) {
       int idFace = 0;
       if (face == IMFont.FACE_PROPORTIONAL) {
@@ -192,7 +224,7 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
       }
       fonts[idFace][idStyle][idSize] = font;
    }
-   
+
    //#mdebug
    public IDLog toDLog() {
       return toStringGetUCtx().toDLog();
@@ -203,7 +235,7 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
    }
 
    public void toString(Dctx dc) {
-      dc.root(this, "AbstractFontFactory");
+      dc.root(this, FontFactoryAbstract.class, "@line5");
       toStringPrivate(dc);
    }
 
@@ -211,19 +243,19 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
       return Dctx.toString1Line(this);
    }
 
-   private void toStringPrivate(Dctx dc) {
-
-   }
-
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, "AbstractFontFactory");
+      dc.root1Line(this, FontFactoryAbstract.class);
       toStringPrivate(dc);
    }
 
    public UCtx toStringGetUCtx() {
       return cdc.getUCtx();
    }
+
+   private void toStringPrivate(Dctx dc) {
+
+   }
+
    //#enddebug
-   
 
 }
