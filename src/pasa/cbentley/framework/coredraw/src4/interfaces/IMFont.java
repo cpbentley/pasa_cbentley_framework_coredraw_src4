@@ -52,13 +52,29 @@ public interface IMFont extends ITechFont, IStringable {
     */
    public int getWidthWeigh();
 
+   public boolean isMonospace();
+
    public String getName();
 
    public boolean isSupported(int flag);
 
+   /**
+    * <li> {@link ITechFont#FACE_MONOSPACE}
+    * <li> {@link ITechFont#FACE_PROPORTIONAL}
+    * <li> {@link ITechFont#FACE_SYSTEM}
+    * @return
+    */
    public int getFace();
 
+   /**
+    * 
+    * @return
+    */
    public int getStyle();
 
+   /**
+    * 
+    * @return
+    */
    public int getSize();
 }

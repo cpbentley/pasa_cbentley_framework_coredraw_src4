@@ -104,7 +104,7 @@ public abstract class FontAbstract implements IMFont {
    }
 
    private void toStringPrivate(Dctx dc) {
-      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.fontFace(face));
+      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.debugFontFace(face));
       dc.appendVarWithSpace("size", ToStringStaticCoreDraw.debugFontSize(size));
       dc.appendVarWithSpace("style", ToStringStaticCoreDraw.debugFontStyle(style));
    }

@@ -58,7 +58,7 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
       }
    }
 
-   public static String fontFace(int face) {
+   public static String debugFontFace(int face) {
       switch (face) {
          case ITechFont.FACE_MONOSPACE:
             return "Mono";
@@ -73,16 +73,18 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
 
    public static String debugFontSize(int size) {
       switch (size) {
-         case ITechFont.SIZE_4_LARGE:
-            return "LARGE";
-         case ITechFont.SIZE_3_MEDIUM:
-            return "MEDIUM";
-         case ITechFont.SIZE_2_SMALL:
-            return "SMALL";
-         case ITechFont.SIZE_5_HUGE:
-            return "VERY LARGE";
+         case ITechFont.SIZE_0_DEFAULT:
+            return "Default";
          case ITechFont.SIZE_1_TINY:
-            return "Very SMALL";
+            return "Tiny";
+         case ITechFont.SIZE_2_SMALL:
+            return "Small";
+         case ITechFont.SIZE_3_MEDIUM:
+            return "Medium";
+         case ITechFont.SIZE_4_LARGE:
+            return "Large";
+         case ITechFont.SIZE_5_HUGE:
+            return "Huge";
          default:
             return "Unknown " + size;
       }
