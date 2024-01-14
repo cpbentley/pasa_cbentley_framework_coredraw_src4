@@ -103,12 +103,6 @@ public abstract class FontAbstract implements IMFont {
       return Dctx.toString1Line(this);
    }
 
-   private void toStringPrivate(Dctx dc) {
-      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.debugFontFace(face));
-      dc.appendVarWithSpace("size", ToStringStaticCoreDraw.debugFontSize(size));
-      dc.appendVarWithSpace("style", ToStringStaticCoreDraw.debugFontStyle(style));
-   }
-
    public void toString1Line(Dctx dc) {
       dc.root1Line(this, FontAbstract.class);
       toStringPrivate(dc);
@@ -116,6 +110,12 @@ public abstract class FontAbstract implements IMFont {
 
    public UCtx toStringGetUCtx() {
       return cac.getUCtx();
+   }
+
+   private void toStringPrivate(Dctx dc) {
+      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.debugFontFace(face));
+      dc.appendVarWithSpace("size", ToStringStaticCoreDraw.debugFontSize(size));
+      dc.appendVarWithSpace("style", ToStringStaticCoreDraw.debugFontStyle(style));
    }
 
    //#enddebug

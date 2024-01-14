@@ -5,6 +5,7 @@
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
 
 /**
@@ -23,6 +24,13 @@ public interface IConfigCoreDraw extends IConfigBO {
    public int[] getFontPoints();
 
    /**
+    * {@link IFontFactory#getFontPointExtraShift()}
+    * 
+    * @return
+    */
+   public int getFontPointsExtraShift();
+
+   /**
     * <li> {@link ITechDrawer#MODSET_APP_ALIAS_0_BEST}
     * <li> {@link ITechDrawer#MODSET_APP_ALIAS_1_ON}
     * <li> {@link ITechDrawer#MODSET_APP_ALIAS_2_OFF}
@@ -30,6 +38,10 @@ public interface IConfigCoreDraw extends IConfigBO {
     */
    public int getAliasMode();
 
+   /**
+    * 
+    * @return
+    */
    public int getAliasModeText();
 
    /**

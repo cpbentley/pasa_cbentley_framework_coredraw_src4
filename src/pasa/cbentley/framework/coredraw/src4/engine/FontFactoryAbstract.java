@@ -9,8 +9,10 @@ import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.core.src4.structs.IntToStrings;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 /**
@@ -29,6 +31,14 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
 
    public IntToStrings         customFonts;
 
+   protected IMFont            fontDef;
+
+   private IMFont              fontDefMono;
+
+   private IMFont              fontDefProp;
+
+   protected int               fontPointsExtraShift;
+
    /**
     * In some frameworks like J2ME and android, font points are not used
     */
@@ -40,24 +50,30 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
     * <li> Style ID
     * <li> Size IDs
     */
-   private IMFont[][][]        fonts      = new IMFont[3][4][5];
-
-   protected IMFont            fontDef;
+   private IMFont[][][]        fonts      = new IMFont[3][4][6];
 
    protected IMFont            z_refFontDebug;
-
-   private IMFont              fontDefMono;
-
-   private IMFont              fontDefProp;
 
    public FontFactoryAbstract(CoreDrawCtx cdc) {
       this.cdc = cdc;
 
    }
+   
+   public int[] getFontSizes() {
+      int[] vs = new int[5];
+      vs[0] = ITechFont.SIZE_1_TINY;
+      vs[1] = ITechFont.SIZE_2_SMALL;
+      vs[2] = ITechFont.SIZE_3_MEDIUM;
+      vs[3] = ITechFont.SIZE_4_LARGE;
+      vs[4] = ITechFont.SIZE_5_HUGE;
+      return vs;
+   }
 
    public void clearFontCache() {
       z_refFontDebug = null;
       fontDef = null;
+      fontDefProp = null;
+      fontDefMono = null;
       for (int i = 0; i < fonts.length; i++) {
          for (int j = 0; j < fonts[i].length; j++) {
             for (int k = 0; k < fonts[i][j].length; k++) {
@@ -65,6 +81,10 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
             }
          }
       }
+   }
+
+   public int getFontPointExtraShift() {
+      return fontPointsExtraShift;
    }
 
    public VisualState fontSizeDecrease() {
@@ -77,6 +97,21 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
       vs.fontPoints = fontPoints;
       clearFontCache();
       return vs;
+   }
+
+   public IFontCustomizer getFontCustomizer() {
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      return fontCustomizer;
+   }
+
+   public void setFontName(String name) {
+      if (cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
+         IFontCustomizer fontCustomizer = getFontCustomizer();
+         if (fontCustomizer != null) {
+            fontCustomizer.setFontFamilySystem(name);
+         }
+         clearFontCache();
+      }
    }
 
    /**
@@ -140,14 +175,25 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
          idStyle = 3;
       }
       int idSize = 0;
-      if (face == IMFont.SIZE_4_LARGE) {
-         idSize = 1;
-      } else if (size == IMFont.SIZE_3_MEDIUM) {
-         idSize = 2;
-      } else if (size == IMFont.SIZE_5_HUGE) {
-         idSize = 4;
-      } else if (size == IMFont.SIZE_1_TINY) {
-         idSize = 3;
+      switch (size) {
+         case IMFont.SIZE_1_TINY:
+            idSize = 1;
+            break;
+         case IMFont.SIZE_2_SMALL:
+            idSize = 2;
+            break;
+         case IMFont.SIZE_3_MEDIUM:
+            idSize = 3;
+            break;
+         case IMFont.SIZE_4_LARGE:
+            idSize = 4;
+            break;
+         case IMFont.SIZE_5_HUGE:
+            idSize = 5;
+            break;
+         default:
+            idSize = 0;
+            break;
       }
       return fonts[idFace][idStyle][idSize];
    }
@@ -175,12 +221,25 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
       }
    }
 
-   public IMFont getFontScaled(int sizeHint, int w, int h) {
-      return getDefaultFont();
+   public String getFontFaceFromID(int id, String def) {
+      if (customFonts != null) {
+         if (customFonts.nextempty > id && id >= 0) {
+            String str = customFonts.getString(id);
+            if (str != null) {
+               return str;
+            }
+         }
+      }
+      return def;
    }
 
-   public void load() {
+   public IMFont getFontScaled(int sizeHint, IMFont srcFont, int h) {
+      int diff = h - srcFont.getHeight();
 
+      int face = srcFont.getFace();
+      int style = srcFont.getStyle();
+
+      return srcFont;
    }
 
    /**
@@ -237,6 +296,22 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
    public void toString(Dctx dc) {
       dc.root(this, FontFactoryAbstract.class, "@line5");
       toStringPrivate(dc);
+      if (fontPoints == null) {
+         dc.append("fontPoints array is null");
+      } else {
+         for (int i = 0; i < fontPoints.length; i++) {
+            dc.appendVarWithNewLine("SIZE_0_DEFAULT", fontPoints[ITechFont.SIZE_0_DEFAULT]);
+            dc.appendVarWithNewLine("SIZE_1_TINY", fontPoints[ITechFont.SIZE_1_TINY]);
+            dc.appendVarWithNewLine("SIZE_2_SMALL", fontPoints[ITechFont.SIZE_2_SMALL]);
+            dc.appendVarWithNewLine("SIZE_3_MEDIUM", fontPoints[ITechFont.SIZE_3_MEDIUM]);
+            dc.appendVarWithNewLine("SIZE_4_LARGE", fontPoints[ITechFont.SIZE_4_LARGE]);
+            dc.appendVarWithNewLine("SIZE_5_HUGE", fontPoints[ITechFont.SIZE_5_HUGE]);
+         }
+      }
+      dc.nlLvl(fontDef, "fontDef");
+      dc.nlLvl(fontDefMono, "fontDefMono");
+      dc.nlLvl(fontDefProp, "fontDefProp");
+      dc.nlLvl(z_refFontDebug, "z_refFontDebug");
    }
 
    public String toString1Line() {
@@ -246,6 +321,44 @@ public abstract class FontFactoryAbstract implements IFontFactory, ITechFont {
    public void toString1Line(Dctx dc) {
       dc.root1Line(this, FontFactoryAbstract.class);
       toStringPrivate(dc);
+   }
+
+   public String toStringFontFamilies() {
+      Dctx dc = new Dctx(toStringGetUCtx());
+      toStringFontFamilies(dc);
+      return dc.toString();
+   }
+
+   public void toStringFontFamilies(Dctx dc) {
+      String[] names = getFontFamilies();
+      if (names == null) {
+         dc.append("getFontFamilies array is null");
+      } else {
+         dc.appendVar("#fonts families", names.length);
+         for (int i = 0; i < names.length; i++) {
+            dc.nl();
+            dc.appendWithSpace(names[i]);
+         }
+      }
+   }
+
+   public String toStringFontNames() {
+      Dctx dc = new Dctx(toStringGetUCtx());
+      toStringFontNames(dc);
+      return dc.toString();
+   }
+
+   public void toStringFontNames(Dctx dc) {
+      String[] names = getFontNames();
+      if (names == null) {
+         dc.append("getFontNames array is null");
+      } else {
+         dc.appendVar("#fonts", names.length);
+         for (int i = 0; i < names.length; i++) {
+            dc.nl();
+            dc.appendWithSpace(names[i]);
+         }
+      }
    }
 
    public UCtx toStringGetUCtx() {

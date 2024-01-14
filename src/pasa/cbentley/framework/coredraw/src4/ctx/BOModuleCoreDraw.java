@@ -6,8 +6,8 @@ package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.byteobjects.src4.core.BOModuleAbstract;
 import pasa.cbentley.byteobjects.src4.core.ByteObject;
-import pasa.cbentley.byteobjects.src4.ctx.IDebugStringable;
 import pasa.cbentley.core.src4.logging.Dctx;
+import pasa.cbentley.core.src4.logging.IDebugStringable;
 
 /**
  * Managed all the Types of this Business Model module.
@@ -28,12 +28,12 @@ public class BOModuleCoreDraw extends BOModuleAbstract implements IDebugStringab
       toDLog().pInit("starts", this, BOModuleCoreDraw.class, "constructor", LVL_05_FINE, true);
    }
 
-   public ByteObject getFlagOrdered(ByteObject bo, int offset, int flag) {
+   public ByteObject getFlagOrderedBO(ByteObject bo, int offset, int flag) {
       // TODO Auto-generated method stub
       return null;
    }
 
-   public String getIDString(int did, int value) {
+   public String toStringGetDIDString(int did, int value) {
       return null;
    }
 

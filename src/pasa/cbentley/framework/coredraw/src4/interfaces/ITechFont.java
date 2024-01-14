@@ -6,17 +6,26 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 public interface ITechFont {
    /**
-    * Monospace font. i.e. all letters have the same width
+    * Monospace font. i.e. all letters have the same width.
+    * <p>
+    * Value:32
+    * </p>
     */
    public static final int FACE_MONOSPACE    = 32;
 
    /**
-    * Proportional font: width varies
+    * Proportional font: width varies.
+    * <p>
+    * Value:64
+    * </p>
     */
    public static final int FACE_PROPORTIONAL = 64;
 
    /**
-    * Font Face depends on the system. Should not be used for consistent across platforms
+    * Font Face depends on the system. Should not be used for consistent across platforms.
+    * <p>
+    * Value:0
+    * </p>
     */
    public static final int FACE_SYSTEM       = 0;
 

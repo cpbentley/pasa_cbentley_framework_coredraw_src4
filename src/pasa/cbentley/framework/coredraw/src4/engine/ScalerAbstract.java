@@ -7,11 +7,12 @@ package pasa.cbentley.framework.coredraw.src4.engine;
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
+import pasa.cbentley.core.src4.logging.IStringable;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IScaler;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
-public abstract class ScalerAbstract implements IScaler, ITechLayout {
+public abstract class ScalerAbstract implements IScaler, ITechLayout, IStringable {
 
    protected final CoreDrawCtx cdc;
 

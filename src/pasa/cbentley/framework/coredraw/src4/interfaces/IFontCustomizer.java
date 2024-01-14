@@ -1,7 +1,5 @@
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
-import java.io.InputStream;
-
 import pasa.cbentley.core.src4.logging.IStringable;
 
 /**
@@ -14,9 +12,11 @@ import pasa.cbentley.core.src4.logging.IStringable;
  */
 public interface IFontCustomizer extends IStringable {
 
+   /**
+    * Loads the font data from its name. Maps it to his name as string.
+    * @param string
+    */
    public void loadFont(String string);
-
-   public void loadFont(InputStream is, String string);
 
    /**
     * Sets the font family for the logical font {@link ITechFont#FACE_MONOSPACE}
@@ -31,7 +31,10 @@ public interface IFontCustomizer extends IStringable {
    public void setFontFamilySystem(String family);
 
    /**
-    * Sets the font family for the logical font {@link ITechFont#FACE_PROPORTIONAL}
+    * Sets the font family for the logical font {@link ITechFont#FACE_PROPORTIONAL}.
+    * <p>
+    * Set to null to go back to the starting configuration value
+    * </p>
     * @param family
     */
    public void setFontFamilyProportional(String family);

@@ -4,11 +4,11 @@
  */
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
-import pasa.cbentley.byteobjects.src4.tech.ITechCtxSettings;
+import pasa.cbentley.byteobjects.src4.core.interfaces.IBOCtxSettings;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
 
-public interface ITechCtxSettingsCoreDraw extends ITechCtxSettings {
+public interface ITechCtxSettingsCoreDraw extends IBOCtxSettings {
 
    public static final int CTX_COREDRAW_BASIC_SIZE                 = CTX_BASIC_SIZE + 5;
 

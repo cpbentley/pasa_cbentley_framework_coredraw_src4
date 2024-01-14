@@ -4,7 +4,7 @@
  */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
-import pasa.cbentley.byteobjects.src4.tech.ITechByteObject;
+import pasa.cbentley.byteobjects.src4.core.interfaces.IByteObject;
 import pasa.cbentley.framework.coredraw.src4.engine.GraphicsAbstract;
 
 /**
@@ -13,7 +13,7 @@ import pasa.cbentley.framework.coredraw.src4.engine.GraphicsAbstract;
  * @author Charles Bentley
  *
  */
-public interface ITechDrawer extends ITechByteObject {
+public interface ITechDrawer extends IByteObject {
 
    public static final int DRAWER_BASIC_SIZE                = A_OBJECT_BASIC_SIZE + 3;
 

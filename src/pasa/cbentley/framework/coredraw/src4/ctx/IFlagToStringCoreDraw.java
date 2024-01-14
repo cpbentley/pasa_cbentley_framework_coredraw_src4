@@ -1,6 +1,6 @@
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
-import pasa.cbentley.core.src4.ctx.IFlagsToString;
+import pasa.cbentley.core.src4.ctx.IToStringFlags;
 import pasa.cbentley.core.src4.interfaces.IEvents;
 import pasa.cbentley.core.src4.interfaces.IFlags;
 
@@ -10,7 +10,7 @@ import pasa.cbentley.core.src4.interfaces.IFlags;
  * @author Charles Bentley
  *
  */
-public interface IFlagToStringCoreDraw extends IFlagsToString {
+public interface IFlagToStringCoreDraw extends IToStringFlags {
 
    /**
     * 

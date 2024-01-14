@@ -5,7 +5,10 @@
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 import pasa.cbentley.core.src4.logging.IStringable;
+import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
+import pasa.cbentley.layouter.src4.tech.ITechLayout;
+import pasa.cbentley.layouter.src4.tech.ITechSizer;
 
 public interface IFontFactory extends IStringable {
 
@@ -25,15 +28,39 @@ public interface IFontFactory extends IStringable {
    public VisualState fontSizeIncrease();
 
    /**
+    * Path to the .ttf or otf file
+    * @param path
+    */
+   public void loadFont(String path);
+
+   /**
+    * Array with
+    * <li> {@link ITechFont#SIZE_1_TINY}
+    * <li> {@link ITechFont#SIZE_2_SMALL}
+    * <li> {@link ITechFont#SIZE_3_MEDIUM}
+    * <li> ...
+    * @return
+    */
+   public int[] getFontSizes();
+   /**
     * Call this for the default size.
     * @return
     */
    public IMFont getDefaultFont();
 
+   /**
+    * <li> {@link ITechFont#FACE_MONOSPACE}
+    * @return
+    */
    public IMFont getDefaultFontMono();
 
+   /**
+    * <li> {@link ITechFont#FACE_PROPORTIONAL}
+    * @return
+    */
    public IMFont getDefaultFontProportional();
-
+   
+   public String getFontFaceFromID(int id, String def);
    /**
     * Creates a Framework font.
     * Faces are
@@ -64,16 +91,18 @@ public interface IFontFactory extends IStringable {
    public IMFont getFont(int face, int style, int size);
 
    /**
-    * If Hosts does not support Font face, it will returns Default Font.
+    * This method allows to create 
+    * If host draw context does not support {@link ITechFeaturesDraw#SUP_ID_06_CUSTOM_FONTS} , it will returns Default Font.
     * <br>
-    * Font point are...
+    * Font point are host based value...
+    * The {@link ITechFont#SIZE_2_SMALL} value will be the closest to its configured fontPoints
     * 
-    * @param face
-    * @param style
-    * @param fontPoint
+    * @param fontFaceName
+    * @param style {@link ITechFont#STYLE_BOLD}, {@link ITechFont#STYLE_BOLD}
+    * @param fontPoint 
     * @return
     */
-   public IMFont getFont(String face, int style, int fontPoint);
+   public IMFont getFont(String fontFaceName, int style, int fontPoint);
 
    /**
     * The {@link IMFont} used for debugging message on screen.
@@ -82,14 +111,21 @@ public interface IFontFactory extends IStringable {
    public IMFont getFontDebug();
 
    /**
+    * Part of the custom
+    * Associates Font name with an ID. that is not {@link ITechFont#FACE_MONOSPACE}
     * 
-    * @param string
-    * @return
+    * Reuse this ID in the method {@link IFontFactory#getFont(int, int, int)}
+    * 
+    * @param fontFaceName
+    * @return -1 if System does not support fontFaceName
     */
-   public int getFontFaceID(String string);
+   public int getFontFaceID(String fontFaceName);
 
    /**
-    * The Font names available to this {@link IFontFactory}
+    * The Font names available to this {@link IFontFactory}.
+    * 
+    * <li>
+    * <li>
     * @return
     */
    public String[] getFontNames();
@@ -126,31 +162,49 @@ public interface IFontFactory extends IStringable {
    public int getFontPoint(int size);
 
    /**
+    * The number of Font Points to add when creating a new Font with {@link IFontFactory#getFontPoint(int)}.
+    * 
+    * <p>
+    * This value allows to easily test increase/decrease of font sizes 
+    * </p>
+    * 
+    * {@link IConfigCoreDraw#getFontPointsExtraShift()}
     * 
     * @return
     */
    public int getFontPointExtraShift();
 
    /**
+    * Float value for scaling up font sizes on small high definition screen.
     * 
+    * Usage on Android.
+    * 
+    * Another possiblity is to manually configure bigger font points in the configuration
     * @param size
     * @return
     */
    public float getFontScale(int size);
 
    /**
-    * Returns the font that best fit the w and h according to sizeHint.
+    * Returns the font that best fit the height.
     * <br>
-    * @param sizeHint {@link ISizer#SIZE_1_SMALLEST}
-    * @param w
-    * @param h
+    * <li>{@link ITechLayout#SIZE_1_SMALLEST}
+    * <li>{@link ITechLayout#SIZE_2_SMALL}
+    * <li>{@link ITechLayout#SIZE_3_MEDIUM}
+    * <li>{@link ITechLayout#SIZE_4_BIG}
+    * <li>{@link ITechLayout#SIZE_5_BIGGEST}
+    * 
+    * @param sizeHint Hint.. can be ignored maybe
+    * @param srcFont the font to be scaled so that its H best fits the given height.
+    * @param h height to be matched against
     * @return
     */
-   public IMFont getFontScaled(int sizeHint, int w, int h);
-
+   public IMFont getFontScaled(int sizeHint, IMFont srcFont, int h);
 
    /**
+    * Changes the default font to.
     * 
+    * If font is unknow, the default system font might be used.
     * @param name
     */
    public void setFontName(String name);
@@ -160,6 +214,5 @@ public interface IFontFactory extends IStringable {
     * the method returns
     */
    public void setFontRatio(int ratio, int etalon);
-
 
 }

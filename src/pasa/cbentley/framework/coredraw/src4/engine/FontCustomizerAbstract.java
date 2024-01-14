@@ -6,6 +6,11 @@ import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 
+/**
+ * 
+ * @author Charles Bentley
+ *
+ */
 public abstract class FontCustomizerAbstract implements IFontCustomizer {
 
    protected final CoreDrawCtx         cdc;

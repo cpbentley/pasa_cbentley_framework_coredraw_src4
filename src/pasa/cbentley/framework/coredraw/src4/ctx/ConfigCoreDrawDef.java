@@ -35,6 +35,10 @@ public class ConfigCoreDrawDef extends ConfigAbstract implements IConfigCoreDraw
       super(uc);
    }
 
+   public int getFontPointsExtraShift() {
+      return 0;
+   }
+
    public int getAliasMode() {
       return ITechDrawer.MODSET_APP_ALIAS_1_ON;
    }

@@ -113,8 +113,12 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
    /**
     * Factory tells us if produced images supports such or such feature.
     * 
-    * {@link ITechFeaturesDraw#SUP_ID_06_CUSTOM_FONTS}
-    * {@link ITechFeaturesDraw#SUP_ID_07_IMAGE_SCALING}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_06_CUSTOM_FONTS}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_07_IMAGE_SCALING}
+    * <li>{@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param supportID
     * @return
