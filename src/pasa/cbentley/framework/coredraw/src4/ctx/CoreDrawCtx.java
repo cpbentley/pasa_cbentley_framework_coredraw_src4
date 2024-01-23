@@ -29,18 +29,19 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
  * <li> {@link IImage} and its factory {@link IImageFactory}
  * <li> {@link IGraphics} the drawing interface
  * 
- * The context is independant from other framework contexts.
+ * <p>
+ * This context is independant from other framework contexts. You do not need Core Framework.
  * 
- * Implementation
+ * It is done on purpose so that a Swing app can use this drawing Ctx without loading the Application framework
+ * </p>
+ * 
  * 
  * @author Charles Bentley
  *
  */
 public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCoreDraw, ITechFeaturesDraw, IFeaturable {
 
-   protected final IConfigCoreDraw configDraw;
-
-   private BOModuleCoreDraw        boModule;
+   protected final BOModuleCoreDraw boModule;
 
    /**
     * In memory constrained context, config is null, and the default one is used packed in bytes ?
@@ -49,13 +50,12 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
     */
    public CoreDrawCtx(IConfigCoreDraw configDraw, BOCtx boc) {
       super(configDraw, boc);
-      this.configDraw = configDraw;
 
       boModule = new BOModuleCoreDraw(this);
    }
 
-   public IConfigCoreDraw IConfigCoreDraw() {
-      return configDraw;
+   public IConfigCoreDraw getConfigCoreDraw() {
+      return (IConfigCoreDraw) config;
    }
 
    public BOModuleCoreDraw getModule() {
@@ -63,7 +63,7 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
    }
 
    public int getColorImageBackgroundDefault() {
-      return configDraw.getColorImageBackgroundDefault();
+      return getConfigCoreDraw().getColorImageBackgroundDefault();
    }
 
    public ICtx[] getCtxSub() {
@@ -160,7 +160,8 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
       dc.root(this, CoreDrawCtx.class);
       toStringPrivate(dc);
       super.toString(dc.sup());
-      dc.nlLvl(configDraw, IConfigCoreDraw.class);
+      
+      dc.nlLvl(boModule,"BOModuleCoreDraw");
    }
 
    private void toStringPrivate(Dctx dc) {
