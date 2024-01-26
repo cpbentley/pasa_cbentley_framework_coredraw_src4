@@ -8,7 +8,7 @@ import pasa.cbentley.core.src4.logging.IStringable;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
-import pasa.cbentley.layouter.src4.tech.ITechSizer;
+import pasa.cbentley.layouter.src4.tech.IBOSizer;
 
 public interface IFontFactory extends IStringable {
 
