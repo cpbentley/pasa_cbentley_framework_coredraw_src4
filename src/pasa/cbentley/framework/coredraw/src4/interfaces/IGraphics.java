@@ -111,6 +111,7 @@ public interface IGraphics extends IStringable, ITechGraphics {
     * 
     * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
     * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
     * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID
@@ -123,6 +124,7 @@ public interface IGraphics extends IStringable, ITechGraphics {
     * 
     * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
     * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
     * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID

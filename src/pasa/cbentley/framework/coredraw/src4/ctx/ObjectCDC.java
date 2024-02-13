@@ -5,11 +5,11 @@ import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.core.src4.logging.IStringable;
 
-public class ObjectCoreDraw implements IStringable {
+public class ObjectCDC implements IStringable {
 
    protected final CoreDrawCtx cdc;
 
-   public ObjectCoreDraw(CoreDrawCtx cdc) {
+   public ObjectCDC(CoreDrawCtx cdc) {
       this.cdc = cdc;
    }
    
@@ -23,7 +23,7 @@ public class ObjectCoreDraw implements IStringable {
    }
 
    public void toString(Dctx dc) {
-      dc.root(this, ObjectCoreDraw.class, "@line5");
+      dc.root(this, ObjectCDC.class, "@line5");
       toStringPrivate(dc);
    }
 
@@ -36,7 +36,7 @@ public class ObjectCoreDraw implements IStringable {
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, ObjectCoreDraw.class);
+      dc.root1Line(this, ObjectCDC.class);
       toStringPrivate(dc);
    }
 

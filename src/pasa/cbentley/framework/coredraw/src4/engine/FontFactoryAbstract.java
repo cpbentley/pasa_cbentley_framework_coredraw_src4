@@ -7,7 +7,7 @@ package pasa.cbentley.framework.coredraw.src4.engine;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.structs.IntToStrings;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
-import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCoreDraw;
+import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
@@ -24,7 +24,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
  * @author Charles Bentley
  *
  */
-public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFontFactory, ITechFont {
+public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFactory, ITechFont {
 
    public IntToStrings  customFonts;
 
@@ -34,11 +34,6 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
 
    private IMFont       fontDefProp;
 
-   /**
-    * In some frameworks like J2ME and android, font points are not used
-    */
-   protected int[]      fontPoints = null;
-
    protected int        fontPointsExtraShift;
 
    /**
@@ -47,7 +42,7 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
     * <li> Style ID
     * <li> Size IDs
     */
-   private IMFont[][][] fonts      = new IMFont[3][4][6];
+   private IMFont[][][] fonts = new IMFont[3][4][6];
 
    protected IMFont     z_refFontDebug;
 
@@ -69,15 +64,11 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
       }
    }
 
+   /**
+    * By Default we are not able to do this. this will depend on the host capabilities
+    */
    public VisualState fontSizeDecrease() {
       VisualState vs = new VisualState();
-      for (int i = 0; i < fontPoints.length; i++) {
-         if (fontPoints[i] > 0)
-            fontPoints[i]--;
-      }
-      //update all fonts
-      vs.fontPoints = fontPoints;
-      clearFontCache();
       return vs;
    }
 
@@ -90,11 +81,6 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
     */
    public VisualState fontSizeIncrease() {
       VisualState vs = new VisualState();
-      for (int i = 0; i < fontPoints.length; i++) {
-         fontPoints[i]++;
-      }
-      vs.fontPoints = fontPoints;
-      clearFontCache();
       return vs;
    }
 
@@ -270,6 +256,20 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
       fonts[idFace][idStyle][idSize] = font;
    }
 
+   public IMFont getFont(int face, int style, int size) {
+      IMFont f = getFontCached(face, style, size);
+      if (f == null) {
+         f = createFont(face, style, size);
+         setFontFromCache(face, style, size, f);
+      }
+      return f;
+   }
+
+   protected abstract IMFont createFont(int face, int style, int size);
+
+   /**
+    * Sets the font for {@link ITechFont#FACE_SYSTEM}
+    */
    public void setFontName(String name) {
       if (cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
          IFontCustomizer fontCustomizer = getFontCustomizer();
@@ -284,16 +284,6 @@ public abstract class FontFactoryAbstract extends ObjectCoreDraw implements IFon
    public void toString(Dctx dc) {
       dc.root(this, FontFactoryAbstract.class, "@line5");
       toStringPrivate(dc);
-      if (fontPoints == null) {
-         dc.append("fontPoints array is null");
-      } else {
-         dc.appendVarWithNewLine("SIZE_0_DEFAULT", fontPoints[ITechFont.SIZE_0_DEFAULT]);
-         dc.appendVarWithNewLine("SIZE_1_TINY", fontPoints[ITechFont.SIZE_1_TINY]);
-         dc.appendVarWithNewLine("SIZE_2_SMALL", fontPoints[ITechFont.SIZE_2_SMALL]);
-         dc.appendVarWithNewLine("SIZE_3_MEDIUM", fontPoints[ITechFont.SIZE_3_MEDIUM]);
-         dc.appendVarWithNewLine("SIZE_4_LARGE", fontPoints[ITechFont.SIZE_4_LARGE]);
-         dc.appendVarWithNewLine("SIZE_5_HUGE", fontPoints[ITechFont.SIZE_5_HUGE]);
-      }
       dc.nlLvl(fontDef, "fontDef");
       dc.nlLvl(fontDefMono, "fontDefMono");
       dc.nlLvl(fontDefProp, "fontDefProp");

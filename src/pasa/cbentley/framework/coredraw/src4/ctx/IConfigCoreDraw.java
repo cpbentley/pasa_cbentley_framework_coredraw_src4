@@ -6,7 +6,7 @@ package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
 /**
  * Generic configuration API for the {@link CoreDrawCtx}
@@ -16,13 +16,11 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
  */
 public interface IConfigCoreDraw extends IConfigBO {
 
-   /**
-    * Overrides hardcoded font points.
-    * 
-    * @return when null, hardcoded points are used
-    */
-   public int[] getFontPoints();
-
+   public int getFontPoint_01_Tiny();
+   public int getFontPoint_02_Small();
+   public int getFontPoint_03_Medium();
+   public int getFontPoint_04_Large();
+   public int getFontPoint_05_Huge();
    /**
     * {@link IFontFactory#getFontPointExtraShift()}
     * 
@@ -31,9 +29,9 @@ public interface IConfigCoreDraw extends IConfigBO {
    public int getFontPointsExtraShift();
 
    /**
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_0_BEST}
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_1_ON}
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_2_OFF}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_0_BEST}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_1_ON}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_2_OFF}
     * @return
     */
    public int getAliasMode();

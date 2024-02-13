@@ -2,6 +2,14 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 public interface ITechGraphics {
 
+   public static final int BASELINE                     = 64;
+
+   public static final int BOTTOM                       = 32;
+
+   public static final int DOTTED                       = 1;
+
+   public static final int HCENTER                      = 1;
+
    /**
     * When {@link IGraphics} has this flag, it is anti aliased.
     * <br>
@@ -30,15 +38,13 @@ public interface ITechGraphics {
     */
    public static final int IMPL_FLAG_4_NO_ALIAS         = 1 << 3;
 
-   public static final int BASELINE                     = 64;
-
-   public static final int BOTTOM                       = 32;
-
-   public static final int DOTTED                       = 1;
-
-   public static final int HCENTER                      = 1;
-
    public static final int LEFT                         = 4;
+
+   public static final int MODSET_APP_ALIAS_0_BEST      = 0;
+
+   public static final int MODSET_APP_ALIAS_1_ON        = 1;
+
+   public static final int MODSET_APP_ALIAS_2_OFF       = 2;
 
    public static final int RIGHT                        = 8;
 

@@ -6,9 +6,10 @@ package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.byteobjects.src4.core.interfaces.IBOCtxSettings;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
 
-public interface ITechCtxSettingsCoreDraw extends IBOCtxSettings {
+public interface IBOCtxSettingsCoreDraw extends IBOCtxSettings {
 
    public static final int CTX_COREDRAW_BASIC_SIZE                 = CTX_BASIC_SIZE + 5;
 
@@ -23,10 +24,10 @@ public interface ITechCtxSettingsCoreDraw extends IBOCtxSettings {
     * Defines the global alias mode for {@link IGraphics} implementations
     * 
     * An implementation can be created with an explicit mode defined
-    * in {@link ITechDrawer}
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_0_BEST}
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_1_ON}
-    * <li> {@link ITechDrawer#MODSET_APP_ALIAS_2_OFF}
+    * in {@link IBOGraphics}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_0_BEST}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_1_ON}
+    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_2_OFF}
     */
    public static final int CTX_COREDRAW_OFFSET_02_MODE_ALIAS1      = CTX_BASIC_SIZE + 1;
 

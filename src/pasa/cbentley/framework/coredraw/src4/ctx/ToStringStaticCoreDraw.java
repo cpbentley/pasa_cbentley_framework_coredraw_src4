@@ -5,8 +5,8 @@
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.core.src4.logging.ToStringStaticBase;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
 public class ToStringStaticCoreDraw extends ToStringStaticBase {
 
@@ -47,11 +47,11 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
 
    public static String aliasModeNull(int mode) {
       switch (mode) {
-         case ITechDrawer.MODSET_APP_ALIAS_0_BEST:
+         case ITechGraphics.MODSET_APP_ALIAS_0_BEST:
             return "Best";
-         case ITechDrawer.MODSET_APP_ALIAS_1_ON:
+         case ITechGraphics.MODSET_APP_ALIAS_1_ON:
             return "On";
-         case ITechDrawer.MODSET_APP_ALIAS_2_OFF:
+         case ITechGraphics.MODSET_APP_ALIAS_2_OFF:
             return "Off";
          default:
             return null;

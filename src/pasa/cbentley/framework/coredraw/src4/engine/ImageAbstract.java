@@ -6,6 +6,7 @@ package pasa.cbentley.framework.coredraw.src4.engine;
 
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
 
 /**
@@ -15,21 +16,21 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
  * @author Charles Bentley
  *
  */
-public abstract class ImageAbstract extends AbstractDrawTemplate implements IImage {
+public abstract class ImageAbstract extends ObjectCDC implements IImage {
 
    protected ImageAbstract(CoreDrawCtx cac) {
       super(cac);
    }
-   
+
    //#mdebug
    public void toString(Dctx dc) {
-      dc.root(this, ImageAbstract.class, "@line5");
+      dc.root(this, ImageAbstract.class, 30);
       toStringPrivate(dc);
       super.toString(dc.sup());
    }
 
    private void toStringPrivate(Dctx dc) {
-      
+
    }
 
    public void toString1Line(Dctx dc) {
@@ -39,6 +40,5 @@ public abstract class ImageAbstract extends AbstractDrawTemplate implements IIma
    }
 
    //#enddebug
-   
 
 }

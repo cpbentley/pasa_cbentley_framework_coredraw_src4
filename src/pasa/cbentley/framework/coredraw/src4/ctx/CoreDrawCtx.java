@@ -13,6 +13,7 @@ import pasa.cbentley.core.src4.ctx.ICtx;
 import pasa.cbentley.core.src4.event.BusEvent;
 import pasa.cbentley.core.src4.interfaces.IFeaturable;
 import pasa.cbentley.core.src4.logging.Dctx;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
@@ -20,7 +21,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IImageFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IScaler;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
 /**
  * Provides just the bare minimum UI
@@ -39,7 +40,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechDrawer;
  * @author Charles Bentley
  *
  */
-public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCoreDraw, ITechFeaturesDraw, IFeaturable {
+public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDraw, ITechFeaturesDraw, IFeaturable {
 
    protected final BOModuleCoreDraw boModule;
 
@@ -77,25 +78,30 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
    public abstract void callSerially(Runnable run);
 
    /**
-    * {@link ITechCtxSettingsCoreDraw}
+    * {@link IBOCtxSettingsCoreDraw}
     * @return
     */
-   public ByteObject getTechCtxSettingsCoreDraw() {
-      return getSettingsBO();
+   public ByteObject getBOCtxSettingsCoreDraw() {
+      return getBOCtxSettings();
+   }
+
+   public ByteObject createBOGraphicsDefault() {
+      ByteObject bo = getBOC().getByteObjectFactory().createParameter(IBOGraphics.GRAPHICS_BASIC_SIZE);
+      return bo;
    }
 
    public void applySettings(ByteObject settingsNew, ByteObject settingsOld) {
-      boc.getEventBus().sendNewEvent(IEventsBO.PID_1_CTX, IEventsBO.PID_1_CTX_1_SETTINGS_CHANGE, this);
+      boc.getEventBus().sendNewEvent(IEventsBO.PID_01_CTX, IEventsBO.PID_01_CTX_1_SETTINGS_CHANGE, this);
    }
 
    public void applySettingsAlias() {
-      BusEvent be = boc.getEventBus().createEvent(IEventsBO.PID_1_CTX, IEventsBO.PID_1_CTX_1_SETTINGS_CHANGE, this);
+      BusEvent be = boc.getEventBus().createEvent(IEventsBO.PID_01_CTX, IEventsBO.PID_01_CTX_1_SETTINGS_CHANGE, this);
       be.setParam1(IEventsCoreDraw.SETTINGS_1_ALIAS);
       be.putOnBus();
    }
 
    public int getBOCtxSettingSize() {
-      return ITechCtxSettingsCoreDraw.CTX_COREDRAW_BASIC_SIZE;
+      return IBOCtxSettingsCoreDraw.CTX_COREDRAW_BASIC_SIZE;
    }
 
    public abstract IFontFactory getFontFactory();
@@ -131,17 +137,17 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
     * @return true if alias is on
     */
    public boolean toogleAlias() {
-      ByteObject techCtx = getSettingsBO();
+      ByteObject techCtx = getBOCtxSettings();
       int mode = techCtx.get1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1);
-      if (mode == ITechDrawer.MODSET_APP_ALIAS_0_BEST || mode == ITechDrawer.MODSET_APP_ALIAS_1_ON) {
-         techCtx.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, ITechDrawer.MODSET_APP_ALIAS_2_OFF);
+      if (mode == ITechGraphics.MODSET_APP_ALIAS_0_BEST || mode == ITechGraphics.MODSET_APP_ALIAS_1_ON) {
+         techCtx.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, ITechGraphics.MODSET_APP_ALIAS_2_OFF);
       } else {
-         techCtx.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, ITechDrawer.MODSET_APP_ALIAS_1_ON);
+         techCtx.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, ITechGraphics.MODSET_APP_ALIAS_1_ON);
       }
       //send event
 
       applySettingsAlias();
-      return techCtx.get1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1) != ITechDrawer.MODSET_APP_ALIAS_2_OFF;
+      return techCtx.get1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1) != ITechGraphics.MODSET_APP_ALIAS_2_OFF;
    }
 
    /**
@@ -149,7 +155,7 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
     * @param renderingFlags
     */
    public boolean toogleAliasForce() {
-      ByteObject techCtx = getSettingsBO();
+      ByteObject techCtx = getBOCtxSettings();
       techCtx.toggleFlag(CTX_COREDRAW_OFFSET_01_FLAG1, CTX_COREDRAW_FLAG_01_OVERRIDE_ALIAS);
       applySettingsAlias();
       return techCtx.hasFlag(CTX_COREDRAW_OFFSET_01_FLAG1, CTX_COREDRAW_FLAG_01_OVERRIDE_ALIAS);
@@ -160,8 +166,8 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
       dc.root(this, CoreDrawCtx.class);
       toStringPrivate(dc);
       super.toString(dc.sup());
-      
-      dc.nlLvl(boModule,"BOModuleCoreDraw");
+
+      dc.nlLvl(boModule, "BOModuleCoreDraw");
    }
 
    private void toStringPrivate(Dctx dc) {
@@ -174,6 +180,23 @@ public abstract class CoreDrawCtx extends ABOCtx implements ITechCtxSettingsCore
       super.toString1Line(dc.sup1Line());
    }
 
+   /**
+    * {@link IBOCtxSettingsCoreDraw}
+    */
+   public void toStringCtxSettings(Dctx dc, ByteObject bo) {
+      super.toStringCtxSettings(dc, bo);
+      dc.nl();
+      dc.rootN(bo, "IBOCtxSettingsCoreDraw", CoreDrawCtx.class, 190);
+
+      int mode = bo.get1(IBOCtxSettingsCoreDraw.CTX_COREDRAW_OFFSET_02_MODE_ALIAS1);
+      dc.appendVarWithNewLine("Mode_Alias", mode);
+      dc.appendBracketedWithSpace(ToStringStaticCoreDraw.aliasMode(mode));
+
+      int modeText = bo.get1(IBOCtxSettingsCoreDraw.CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1);
+      dc.appendVarWithNewLine("Mode_Alias_Text", modeText);
+      dc.appendBracketedWithSpace(ToStringStaticCoreDraw.aliasMode(modeText));
+
+   }
    //#enddebug
 
 }
