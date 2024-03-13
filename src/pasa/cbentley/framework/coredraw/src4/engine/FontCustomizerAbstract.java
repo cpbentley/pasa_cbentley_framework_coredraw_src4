@@ -119,7 +119,7 @@ public abstract class FontCustomizerAbstract implements IFontCustomizer {
    }
 
    public UCtx toStringGetUCtx() {
-      return cdc.getUCtx();
+      return cdc.getUC();
    }
 
    private void toStringPrivate(Dctx dc) {

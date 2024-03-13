@@ -41,7 +41,7 @@ public class ObjectCDC implements IStringable {
    }
 
    public UCtx toStringGetUCtx() {
-      return cdc.getUCtx();
+      return cdc.getUC();
    }
 
    //#enddebug

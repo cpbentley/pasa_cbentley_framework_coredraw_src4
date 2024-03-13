@@ -46,7 +46,7 @@ public abstract class ImageFactoryAbstract implements IImageFactory {
    }
 
    public UCtx toStringGetUCtx() {
-      return cdc.getUCtx();
+      return cdc.getUC();
    }
 
    //#enddebug

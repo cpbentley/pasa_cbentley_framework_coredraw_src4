@@ -48,7 +48,7 @@ public abstract class ScalerAbstract implements IScaler, ITechLayout, IStringabl
    }
 
    public UCtx toStringGetUCtx() {
-      return cdc.getUCtx();
+      return cdc.getUC();
    }
 
    //#enddebug

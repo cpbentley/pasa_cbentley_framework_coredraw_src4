@@ -109,7 +109,7 @@ public abstract class FontAbstract implements IMFont {
    }
 
    public UCtx toStringGetUCtx() {
-      return cac.getUCtx();
+      return cac.getUC();
    }
 
    private void toStringPrivate(Dctx dc) {

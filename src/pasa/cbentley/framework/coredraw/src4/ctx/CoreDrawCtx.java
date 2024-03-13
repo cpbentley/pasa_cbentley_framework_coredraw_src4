@@ -9,6 +9,8 @@ import pasa.cbentley.byteobjects.src4.ctx.ABOCtx;
 import pasa.cbentley.byteobjects.src4.ctx.BOCtx;
 import pasa.cbentley.byteobjects.src4.ctx.IConfigBO;
 import pasa.cbentley.byteobjects.src4.ctx.IEventsBO;
+import pasa.cbentley.byteobjects.src4.ctx.IStaticIDsBO;
+import pasa.cbentley.core.src4.ctx.CtxManager;
 import pasa.cbentley.core.src4.ctx.ICtx;
 import pasa.cbentley.core.src4.event.BusEvent;
 import pasa.cbentley.core.src4.interfaces.IFeaturable;
@@ -53,41 +55,10 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       super(configDraw, boc);
 
       boModule = new BOModuleCoreDraw(this);
-   }
 
-   public IConfigCoreDraw getConfigCoreDraw() {
-      return (IConfigCoreDraw) config;
-   }
+      CtxManager cm = uc.getCtxManager();
+      cm.registerStaticRange(this, IStaticIDsBO.SID_BYTEOBJECT_TYPES, IBOTypesCoreDraw.AZ_BOTYPE_FW_A, IBOTypesCoreDraw.AZ_BOTYPE_FW_Z);
 
-   public BOModuleCoreDraw getModule() {
-      return boModule;
-   }
-
-   public int getColorImageBackgroundDefault() {
-      return getConfigCoreDraw().getColorImageBackgroundDefault();
-   }
-
-   public ICtx[] getCtxSub() {
-      return new ICtx[] { boc };
-   }
-
-   /**
-    * Call the {@link Runnable} later in the drawing thread.
-    * @param run
-    */
-   public abstract void callSerially(Runnable run);
-
-   /**
-    * {@link IBOCtxSettingsCoreDraw}
-    * @return
-    */
-   public ByteObject getBOCtxSettingsCoreDraw() {
-      return getBOCtxSettings();
-   }
-
-   public ByteObject createBOGraphicsDefault() {
-      ByteObject bo = getBOC().getByteObjectFactory().createParameter(IBOGraphics.GRAPHICS_BASIC_SIZE);
-      return bo;
    }
 
    public void applySettings(ByteObject settingsNew, ByteObject settingsOld) {
@@ -100,21 +71,50 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       be.putOnBus();
    }
 
+   /**
+    * Call the {@link Runnable} later in the drawing thread.
+    * @param run
+    */
+   public abstract void callSerially(Runnable run);
+
+   public ByteObject createBOGraphicsDefault() {
+      ByteObject bo = getBOC().getByteObjectFactory().createParameter(IBOGraphics.GRAPHICS_BASIC_SIZE);
+      return bo;
+   }
+
+   /**
+    * {@link IBOCtxSettingsCoreDraw}
+    * @return
+    */
+   public ByteObject getBOCtxSettingsCoreDraw() {
+      return getBOCtxSettings();
+   }
+
    public int getBOCtxSettingSize() {
       return IBOCtxSettingsCoreDraw.CTX_COREDRAW_BASIC_SIZE;
+   }
+
+   public int getColorImageBackgroundDefault() {
+      return getConfigCoreDraw().getColorImageBackgroundDefault();
+   }
+
+   public IConfigCoreDraw getConfigCoreDraw() {
+      return (IConfigCoreDraw) config;
+   }
+
+   public ICtx[] getCtxSub() {
+      return new ICtx[] { boc };
    }
 
    public abstract IFontFactory getFontFactory();
 
    public abstract IImageFactory getImageFactory();
 
-   public abstract IScaler getScaler();
-
-   protected void matchConfig(IConfigBO config, ByteObject settings) {
-      IConfigCoreDraw configDraw = (IConfigCoreDraw) config;
-      settings.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, configDraw.getAliasMode());
-      settings.set1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1, configDraw.getAliasModeText());
+   public BOModuleCoreDraw getModule() {
+      return boModule;
    }
+
+   public abstract IScaler getScaler();
 
    /**
     * Factory tells us if produced images supports such or such feature.
@@ -130,6 +130,12 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
     * @return
     */
    public abstract boolean hasFeatureSupport(int supportID);
+
+   protected void matchConfig(IConfigBO config, ByteObject settings) {
+      IConfigCoreDraw configDraw = (IConfigCoreDraw) config;
+      settings.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, configDraw.getAliasMode());
+      settings.set1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1, configDraw.getAliasModeText());
+   }
 
    /**
     * Toggle ctx wide alias mode
@@ -170,10 +176,6 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       dc.nlLvl(boModule, "BOModuleCoreDraw");
    }
 
-   private void toStringPrivate(Dctx dc) {
-
-   }
-
    public void toString1Line(Dctx dc) {
       dc.root1Line(this, CoreDrawCtx.class);
       toStringPrivate(dc);
@@ -198,5 +200,9 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
 
    }
    //#enddebug
+
+   private void toStringPrivate(Dctx dc) {
+
+   }
 
 }

@@ -149,7 +149,8 @@ public interface IFontFactory extends IStringable {
    public int[] getFontPoints();
 
    /**
-    * Matches size argument 
+    * Matches size argument with host font points
+    * 
     * <li>{@link ITechFont#SIZE_1_TINY}
     * <li>{@link ITechFont#SIZE_2_SMALL}
     * <li>{@link ITechFont#SIZE_3_MEDIUM}
