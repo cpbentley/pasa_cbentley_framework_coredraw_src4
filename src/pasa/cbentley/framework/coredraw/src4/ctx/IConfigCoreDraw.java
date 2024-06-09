@@ -16,11 +16,36 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
  */
 public interface IConfigCoreDraw extends IConfigBO {
 
+   /**
+    * 
+    * @return
+    */
    public int getFontPoint_01_Tiny();
+
+   /**
+    * 
+    * @return
+    */
    public int getFontPoint_02_Small();
+
+   /**
+    * 
+    * @return
+    */
    public int getFontPoint_03_Medium();
+
+   /**
+    * 
+    * @return
+    */
    public int getFontPoint_04_Large();
+
+   /**
+    * 
+    * @return
+    */
    public int getFontPoint_05_Huge();
+
    /**
     * {@link IFontFactory#getFontPointExtraShift()}
     * 
