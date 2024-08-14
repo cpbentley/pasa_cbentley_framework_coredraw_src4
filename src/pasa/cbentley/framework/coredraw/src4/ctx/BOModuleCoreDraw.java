@@ -25,7 +25,7 @@ public class BOModuleCoreDraw extends BOModuleAbstract implements IDebugStringab
       super(cdc.getBOC());
       this.cdc = cdc;
       //#debug
-      toDLog().pInit("", this, BOModuleCoreDraw.class, "Created@28", LVL_04_FINER, true);
+      toDLog().pCreate("", this, BOModuleCoreDraw.class, "Created@28", LVL_04_FINER, true);
    }
 
    public ByteObject getFlagOrderedBO(ByteObject bo, int offset, int flag) {
