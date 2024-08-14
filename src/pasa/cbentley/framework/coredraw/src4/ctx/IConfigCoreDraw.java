@@ -16,57 +16,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
  */
 public interface IConfigCoreDraw extends IConfigBO {
 
-   /**
-    * 
-    * @return
-    */
-   public int getFontPoint_01_Tiny();
-
-   /**
-    * 
-    * @return
-    */
-   public int getFontPoint_02_Small();
-
-   /**
-    * 
-    * @return
-    */
-   public int getFontPoint_03_Medium();
-
-   /**
-    * 
-    * @return
-    */
-   public int getFontPoint_04_Large();
-
-   /**
-    * 
-    * @return
-    */
-   public int getFontPoint_05_Huge();
-
-   /**
-    * {@link IFontFactory#getFontPointExtraShift()}
-    * 
-    * @return
-    */
-   public int getFontPointsExtraShift();
-
-   /**
-    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_0_BEST}
-    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_1_ON}
-    * <li> {@link ITechGraphics#MODSET_APP_ALIAS_2_OFF}
-    * @return
-    */
-   public int getAliasMode();
-
-   /**
-    * 
-    * @return
-    */
-   public int getAliasModeText();
-
+  
    /**
     * The color used by default when creating an empty image with an unspecified background color
     * @return

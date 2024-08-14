@@ -45,12 +45,6 @@ public abstract class FontAbstract implements IMFont {
 
    public abstract int charWidth(char c);
 
-   /**
-    * J2ME?
-    * @return
-    */
-   public abstract int getBaselinePosition();
-
    public int getFace() {
       return face;
    }
@@ -74,7 +68,7 @@ public abstract class FontAbstract implements IMFont {
    }
 
    public boolean isPLAIN() {
-      return style == 0;
+      return style == IMFont.STYLE_PLAIN;
    }
 
    public boolean isUnderlined() {
@@ -113,9 +107,9 @@ public abstract class FontAbstract implements IMFont {
    }
 
    private void toStringPrivate(Dctx dc) {
-      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.debugFontFace(face));
-      dc.appendVarWithSpace("size", ToStringStaticCoreDraw.debugFontSize(size));
-      dc.appendVarWithSpace("style", ToStringStaticCoreDraw.debugFontStyle(style));
+      dc.appendVarWithSpace("face", ToStringStaticCoreDraw.toStringFontFace(face));
+      dc.appendVarWithSpace("size", ToStringStaticCoreDraw.toStringFontSize(size));
+      dc.appendVarWithSpace("style", ToStringStaticCoreDraw.toStringFontStyle(style));
    }
 
    //#enddebug

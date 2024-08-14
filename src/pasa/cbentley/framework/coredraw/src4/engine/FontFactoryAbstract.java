@@ -11,8 +11,8 @@ import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 
 /**
  * Template src4 implementation of the {@link IFontFactory}
@@ -152,7 +152,7 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
    }
 
    public IFontCustomizer getFontCustomizer() {
-      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS);
+      IFontCustomizer fontCustomizer = (IFontCustomizer) cdc.getFeatureObject(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS);
       return fontCustomizer;
    }
 
@@ -271,7 +271,7 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
     * Sets the font for {@link ITechFont#FACE_SYSTEM}
     */
    public void setFontName(String name) {
-      if (cdc.hasFeatureSupport(ITechFeaturesDraw.SUP_ID_06_CUSTOM_FONTS)) {
+      if (cdc.hasFeatureSupport(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS)) {
          IFontCustomizer fontCustomizer = getFontCustomizer();
          if (fontCustomizer != null) {
             fontCustomizer.setFontFamilySystem(name);

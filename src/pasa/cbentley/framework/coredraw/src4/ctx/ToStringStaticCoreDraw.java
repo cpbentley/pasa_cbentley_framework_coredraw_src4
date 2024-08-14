@@ -5,6 +5,7 @@
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
 import pasa.cbentley.core.src4.logging.ToStringStaticBase;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
@@ -58,7 +59,11 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
       }
    }
 
-   public static String debugFontFace(int face) {
+   public static String toStringFontFaceStyleSize(IMFont font) {
+      return toStringFontFace(font.getFace()) + toStringFontStyle(font.getStyle()) + toStringFontSize(font.getSize());
+   }
+   
+   public static String toStringFontFace(int face) {
       switch (face) {
          case ITechFont.FACE_MONOSPACE:
             return "Mono";
@@ -71,7 +76,7 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
       }
    }
 
-   public static String debugFontSize(int size) {
+   public static String toStringFontSize(int size) {
       switch (size) {
          case ITechFont.SIZE_0_DEFAULT:
             return "Default";
@@ -90,7 +95,7 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
       }
    }
 
-   public static String debugFontStyle(int style) {
+   public static String toStringFontStyle(int style) {
       switch (style) {
          case ITechFont.STYLE_BOLD:
             return "Bold";

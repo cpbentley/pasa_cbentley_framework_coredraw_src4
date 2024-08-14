@@ -9,8 +9,10 @@ import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImageFactory;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostDataDraw;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 
-public abstract class ImageFactoryAbstract implements IImageFactory {
+public abstract class ImageFactoryAbstract implements IImageFactory, ITechHostFeatureDraw {
 
    protected final CoreDrawCtx cdc;
 

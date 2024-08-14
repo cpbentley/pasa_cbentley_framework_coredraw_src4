@@ -8,7 +8,6 @@ import pasa.cbentley.core.src4.logging.IStringable;
 import pasa.cbentley.framework.coredraw.src4.ctx.IConfigCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.engine.VisualState;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
-import pasa.cbentley.layouter.src4.tech.IBOSizer;
 
 public interface IFontFactory extends IStringable {
 
@@ -92,7 +91,7 @@ public interface IFontFactory extends IStringable {
 
    /**
     * This method allows to create 
-    * If host draw context does not support {@link ITechFeaturesDraw#SUP_ID_06_CUSTOM_FONTS} , it will returns Default Font.
+    * If host draw context does not support {@link ITechHostFeatureDraw#SUP_ID_06_CUSTOM_FONTS} , it will returns Default Font.
     * <br>
     * Font point are host based value...
     * The {@link ITechFont#SIZE_2_SMALL} value will be the closest to its configured fontPoints

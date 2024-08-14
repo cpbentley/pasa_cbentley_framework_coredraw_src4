@@ -67,13 +67,20 @@ public interface IMFont extends ITechFont, IStringable {
    public int getFace();
 
    /**
-    * 
+    * <li> {@link ITechFont#STYLE_BOLD}
+    * <li> {@link ITechFont#STYLE_ITALIC}
+    * <li> {@link ITechFont#STYLE_PLAIN}
     * @return
     */
    public int getStyle();
 
    /**
-    * 
+    * <li> {@link ITechFont#SIZE_0_DEFAULT}
+    * <li> {@link ITechFont#SIZE_1_TINY}
+    * <li> {@link ITechFont#SIZE_2_SMALL}
+    * <li> {@link ITechFont#SIZE_3_MEDIUM}
+    * <li> {@link ITechFont#SIZE_4_LARGE}
+    * <li> {@link ITechFont#SIZE_5_HUGE}
     * @return
     */
    public int getSize();

@@ -11,6 +11,8 @@ import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
 import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IGraphics;
+import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
 
 /**
@@ -22,7 +24,7 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
  * @author Charles Bentley
  *
  */
-public abstract class GraphicsAbstract extends ObjectCDC implements IGraphics, IBOGraphics {
+public abstract class GraphicsAbstract extends ObjectCDC implements IGraphics, IBOGraphics, ITechHostFeatureDraw {
 
    /**
     * {@link IBOGraphics}
@@ -30,7 +32,7 @@ public abstract class GraphicsAbstract extends ObjectCDC implements IGraphics, I
    protected ByteObject boGraphics;
 
    //#debug
-   protected String       nameDebug;
+   protected String     nameDebug;
 
    protected GraphicsAbstract(CoreDrawCtx cdc) {
       this(cdc, cdc.createBOGraphicsDefault());
@@ -38,10 +40,18 @@ public abstract class GraphicsAbstract extends ObjectCDC implements IGraphics, I
 
    protected GraphicsAbstract(CoreDrawCtx cdc, ByteObject boGraphics) {
       super(cdc);
-      if(boGraphics == null) {
+      if (boGraphics == null) {
          throw new NullPointerException();
       }
       this.boGraphics = boGraphics;
+   }
+   
+   public IMFont getFont(int face, int style, int size) {
+      return cdc.getFontFactory().getFont(face, style, size);
+   }
+   
+   public IMFont getDefaultFont() {
+      return cdc.getFontFactory().getDefaultFont();
    }
 
    //#mdebug

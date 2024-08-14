@@ -4,9 +4,15 @@
  */
 package pasa.cbentley.framework.coredraw.src4.interfaces;
 
+import pasa.cbentley.core.src4.logging.IStringable;
 import pasa.cbentley.layouter.src4.tech.ITechLayout;
 
-public interface IScaler {
+/**
+ * 
+ * @author Charles Bentley
+ *
+ */
+public interface IScaler extends IStringable {
    /**
     * Get the Pixel value of a scale value
     * <br>

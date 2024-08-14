@@ -109,10 +109,10 @@ public interface IGraphics extends IStringable, ITechGraphics {
    /**
     * Is the feature enable for this specific {@link IGraphics} instance
     * 
-    * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_03_OPEN_GL}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_05_ALIAS_TEXT}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID
     * @return
@@ -122,16 +122,23 @@ public interface IGraphics extends IStringable, ITechGraphics {
    /**
     * Is the feature enable for this specific {@link IGraphics} instance
     * 
-    * <li> {@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
-    * <li> {@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_03_OPEN_GL}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_05_ALIAS_TEXT}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param featureID
     * @return true if feature could be enabled
     */
    public boolean featureEnable(int featureID, boolean enable);
 
+   /**
+    * 
+    * @param x
+    * @param y
+    * @param width
+    * @param height
+    */
    public abstract void setClip(int x, int y, int width, int height);
 
    /**

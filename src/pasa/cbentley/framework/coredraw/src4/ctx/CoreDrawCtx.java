@@ -13,7 +13,10 @@ import pasa.cbentley.byteobjects.src4.ctx.IStaticIDsBO;
 import pasa.cbentley.core.src4.ctx.CtxManager;
 import pasa.cbentley.core.src4.ctx.ICtx;
 import pasa.cbentley.core.src4.event.BusEvent;
-import pasa.cbentley.core.src4.interfaces.IFeaturable;
+import pasa.cbentley.core.src4.interfaces.IHost;
+import pasa.cbentley.core.src4.interfaces.IHostData;
+import pasa.cbentley.core.src4.interfaces.IHostFeature;
+import pasa.cbentley.core.src4.interfaces.IHostService;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IBOGraphics;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontFactory;
@@ -22,8 +25,8 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IImage;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IImageFactory;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IScaler;
-import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFeaturesDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechHostFeatureDraw;
 
 /**
  * Provides just the bare minimum UI
@@ -42,9 +45,14 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
  * @author Charles Bentley
  *
  */
-public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDraw, ITechFeaturesDraw, IFeaturable {
+public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDraw, ITechHostFeatureDraw {
 
    protected final BOModuleCoreDraw boModule;
+
+   /**
+    * Usually set externall using {@link CoreDrawCtx#setHost(IHost)}
+    */
+   protected IHost                  host;
 
    /**
     * In memory constrained context, config is null, and the default one is used packed in bytes ?
@@ -70,12 +78,6 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       be.setParam1(IEventsCoreDraw.SETTINGS_1_ALIAS);
       be.putOnBus();
    }
-
-   /**
-    * Call the {@link Runnable} later in the drawing thread.
-    * @param run
-    */
-   public abstract void callSerially(Runnable run);
 
    public ByteObject createBOGraphicsDefault() {
       ByteObject bo = getBOC().getByteObjectFactory().createParameter(IBOGraphics.GRAPHICS_BASIC_SIZE);
@@ -106,7 +108,30 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       return new ICtx[] { boc };
    }
 
+   public Object getFeatureObject(int dataID) {
+      return getHostData().getHostDataObject(dataID);
+   }
+
    public abstract IFontFactory getFontFactory();
+
+   public IHost getHost() {
+      if (host == null) {
+         throw new NullPointerException("Host must be set using setHost");
+      }
+      return host;
+   }
+
+   public IHostData getHostData() {
+      return getHost().getHostData();
+   }
+
+   public IHostFeature getHostFeature() {
+      return getHost().getHostFeature();
+   }
+
+   public IHostService getHostService() {
+      return getHost().getHostService();
+   }
 
    public abstract IImageFactory getImageFactory();
 
@@ -119,22 +144,33 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
    /**
     * Factory tells us if produced images supports such or such feature.
     * 
-    * <li>{@link ITechFeaturesDraw#SUP_ID_03_OPEN_GL}
-    * <li>{@link ITechFeaturesDraw#SUP_ID_04_ALIAS}
-    * <li>{@link ITechFeaturesDraw#SUP_ID_05_ALIAS_TEXT}
-    * <li>{@link ITechFeaturesDraw#SUP_ID_06_CUSTOM_FONTS}
-    * <li>{@link ITechFeaturesDraw#SUP_ID_07_IMAGE_SCALING}
-    * <li>{@link ITechFeaturesDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_03_OPEN_GL}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_04_ALIAS}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_05_ALIAS_TEXT}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_06_CUSTOM_FONTS}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_07_IMAGE_SCALING}
+    * <li>{@link ITechHostFeatureDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
     * 
     * @param supportID
     * @return
     */
-   public abstract boolean hasFeatureSupport(int supportID);
+   public boolean hasFeatureSupport(int featureID) {
+      return getHostFeature().isHostFeatureSupported(featureID);
+   }
+
+   public boolean isFeatureEnabled(int featureID) {
+      return getHostFeature().isHostFeatureEnabled(featureID);
+   }
 
    protected void matchConfig(IConfigBO config, ByteObject settings) {
-      IConfigCoreDraw configDraw = (IConfigCoreDraw) config;
-      settings.set1(CTX_COREDRAW_OFFSET_02_MODE_ALIAS1, configDraw.getAliasMode());
-      settings.set1(CTX_COREDRAW_OFFSET_03_MODE_TEXT_ALIAS1, configDraw.getAliasModeText());
+   }
+
+   /**
+    * Must be set by the {@link CoreDrawCtx} implementation or user
+    * @param host
+    */
+   public void setHost(IHost host) {
+      this.host = host;
    }
 
    /**
@@ -162,7 +198,7 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
     */
    public boolean toogleAliasForce() {
       ByteObject techCtx = getBOCtxSettings();
-      techCtx.toggleFlag(CTX_COREDRAW_OFFSET_01_FLAG1, CTX_COREDRAW_FLAG_01_OVERRIDE_ALIAS);
+      techCtx.flagToggle(CTX_COREDRAW_OFFSET_01_FLAG1, CTX_COREDRAW_FLAG_01_OVERRIDE_ALIAS);
       applySettingsAlias();
       return techCtx.hasFlag(CTX_COREDRAW_OFFSET_01_FLAG1, CTX_COREDRAW_FLAG_01_OVERRIDE_ALIAS);
    }
@@ -199,10 +235,10 @@ public abstract class CoreDrawCtx extends ABOCtx implements IBOCtxSettingsCoreDr
       dc.appendBracketedWithSpace(ToStringStaticCoreDraw.aliasMode(modeText));
 
    }
-   //#enddebug
 
    private void toStringPrivate(Dctx dc) {
 
    }
+   //#enddebug
 
 }
