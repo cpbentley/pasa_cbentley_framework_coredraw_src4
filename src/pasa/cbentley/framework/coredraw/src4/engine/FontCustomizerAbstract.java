@@ -4,6 +4,7 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
 
 /**
@@ -11,9 +12,8 @@ import pasa.cbentley.framework.coredraw.src4.interfaces.IFontCustomizer;
  * @author Charles Bentley
  *
  */
-public abstract class FontCustomizerAbstract implements IFontCustomizer {
+public abstract class FontCustomizerAbstract extends ObjectCDC implements IFontCustomizer {
 
-   protected final CoreDrawCtx         cdc;
 
    private String                      defaultFontNameMono;
 
@@ -24,7 +24,7 @@ public abstract class FontCustomizerAbstract implements IFontCustomizer {
    protected final FontFactoryAbstract factory;
 
    public FontCustomizerAbstract(CoreDrawCtx cdc, FontFactoryAbstract factory) {
-      this.cdc = cdc;
+      super(cdc);
       this.factory = factory;
    }
 
@@ -93,39 +93,25 @@ public abstract class FontCustomizerAbstract implements IFontCustomizer {
    }
 
    //#mdebug
-   public IDLog toDLog() {
-      return toStringGetUCtx().toDLog();
-   }
-
-   public String toString() {
-      return Dctx.toString(this);
-   }
-
    public void toString(Dctx dc) {
-      dc.root(this, FontCustomizerAbstract.class, "@line45");
+      dc.root(this, FontCustomizerAbstract.class, 100);
       toStringPrivate(dc);
+      super.toString(dc.sup());
       dc.appendVarWithSpace("defaultFontNameMono", defaultFontNameMono);
       dc.appendVarWithSpace("defaultFontNameProportional", defaultFontNameProportional);
       dc.appendVarWithSpace("defaultFontNameProportional", defaultFontNameProportional);
-   }
-
-   public String toString1Line() {
-      return Dctx.toString1Line(this);
+  
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontCustomizerAbstract.class);
+      dc.root1Line(this, FontCustomizerAbstract.class, 100);
       toStringPrivate(dc);
-   }
-
-   public UCtx toStringGetUCtx() {
-      return cdc.getUC();
+      super.toString1Line(dc.sup1Line());
    }
 
    private void toStringPrivate(Dctx dc) {
-
+      
    }
-
    //#enddebug
-
+   
 }

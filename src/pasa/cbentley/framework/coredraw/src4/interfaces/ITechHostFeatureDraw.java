@@ -2,6 +2,9 @@ package pasa.cbentley.framework.coredraw.src4.interfaces;
 
 public interface ITechHostFeatureDraw {
 
+   /**
+    * 
+    */
    public static final int FEAT_02_ANTI_ALIAS               = 2;
 
    public static final int FEAT_01_ANTI_ALIAS_TEXT          = 1;

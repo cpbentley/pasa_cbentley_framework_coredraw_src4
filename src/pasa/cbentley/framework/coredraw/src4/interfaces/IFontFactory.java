@@ -48,30 +48,38 @@ public interface IFontFactory extends IStringable {
    public IMFont getDefaultFont();
 
    /**
-    * <li> {@link ITechFont#FACE_MONOSPACE}
+    * <li> {@link ITechFont#FACE_01_MONOSPACE}
     * @return
     */
    public IMFont getDefaultFontMono();
 
    /**
-    * <li> {@link ITechFont#FACE_PROPORTIONAL}
+    * <li> {@link ITechFont#FACE_02_PROPORTIONAL}
     * @return
     */
    public IMFont getDefaultFontProportional();
    
+   /**
+    * 
+    * @param id
+    * @param def
+    * @return
+    */
    public String getFontFaceFromID(int id, String def);
+   
+   
    /**
     * Creates a Framework font.
     * Faces are
-    * <li> {@link ITechFont#FACE_SYSTEM}
-    * <li> {@link ITechFont#FACE_MONOSPACE}
-    * <li> {@link ITechFont#FACE_PROPORTIONAL}
+    * <li> {@link ITechFont#FACE_00_SYSTEM}
+    * <li> {@link ITechFont#FACE_01_MONOSPACE}
+    * <li> {@link ITechFont#FACE_02_PROPORTIONAL}
     * <br>
     * Styles are
-    * <li> {@link ITechFont#STYLE_BOLD}
-    * <li> {@link ITechFont#STYLE_ITALIC}
-    * <li> {@link ITechFont#STYLE_PLAIN}
-    * <li> {@link ITechFont#STYLE_UNDERLINED}
+    * <li> {@link ITechFont#STYLE_1_BOLD}
+    * <li> {@link ITechFont#STYLE_2_ITALIC}
+    * <li> {@link ITechFont#STYLE_0_PLAIN}
+    * <li> {@link ITechFont#STYLE_3_UNDERLINED}
     * <br>
     * Sizes are
     * <li> {@link ITechFont#SIZE_4_LARGE}
@@ -97,7 +105,7 @@ public interface IFontFactory extends IStringable {
     * The {@link ITechFont#SIZE_2_SMALL} value will be the closest to its configured fontPoints
     * 
     * @param fontFaceName
-    * @param style {@link ITechFont#STYLE_BOLD}, {@link ITechFont#STYLE_BOLD}
+    * @param style {@link ITechFont#STYLE_1_BOLD}, {@link ITechFont#STYLE_1_BOLD}
     * @param fontPoint 
     * @return
     */
@@ -111,7 +119,7 @@ public interface IFontFactory extends IStringable {
 
    /**
     * Part of the custom
-    * Associates Font name with an ID. that is not {@link ITechFont#FACE_MONOSPACE}
+    * Associates Font name with an ID. that is not {@link ITechFont#FACE_01_MONOSPACE}
     * 
     * Reuse this ID in the method {@link IFontFactory#getFont(int, int, int)}
     * 
@@ -156,6 +164,10 @@ public interface IFontFactory extends IStringable {
     * <li>{@link ITechFont#SIZE_4_LARGE}
     * <li>{@link ITechFont#SIZE_5_HUGE}
     * 
+    * <p>
+    *   When Host does not support custom fonts, returns -1
+    * </p>
+    * 
     * @param size
     * @return
     */
@@ -170,6 +182,9 @@ public interface IFontFactory extends IStringable {
     * 
     * {@link IConfigCoreDraw#getFontPointsExtraShift()}
     * 
+    * <p>
+    *   When Host does not support custom fonts, returns 0
+    * </p>
     * @return
     */
    public int getFontPointExtraShift();

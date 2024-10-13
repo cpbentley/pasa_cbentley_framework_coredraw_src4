@@ -10,6 +10,7 @@ import pasa.cbentley.core.src4.ctx.ConfigAbstract;
 import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.utils.interfaces.IColors;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 import pasa.cbentley.framework.coredraw.src4.interfaces.ITechGraphics;
 
 /**
@@ -22,6 +23,14 @@ public class ConfigCoreDrawDef extends ConfigAbstract implements IConfigCoreDraw
    public ConfigCoreDrawDef(UCtx uc) {
       super(uc);
 
+   }
+
+   public int getDefaultFontSize() {
+      return ITechFont.SIZE_3_MEDIUM;
+   }
+
+   public boolean isUsingFontCache() {
+      return true;
    }
 
    public int getFontPoint_01_Tiny() {
@@ -60,7 +69,6 @@ public class ConfigCoreDrawDef extends ConfigAbstract implements IConfigCoreDraw
       return IColors.FULLY_OPAQUE_BLACK;
    }
 
-
    public void postProcessing(ByteObject settings, ABOCtx ctx) {
 
    }
@@ -76,7 +84,7 @@ public class ConfigCoreDrawDef extends ConfigAbstract implements IConfigCoreDraw
       dc.appendVarWithNewLine("fontPointMedium", getFontPoint_03_Medium());
       dc.appendVarWithNewLine("fontPointLarge ", getFontPoint_04_Large());
       dc.appendVarWithNewLine("fontPointHuge  ", getFontPoint_05_Huge());
-      
+
       dc.appendVarWithNewLine("FontPointsExtraShift", getFontPointsExtraShift());
       dc.appendVarWithNewLine("ColorImageBackgroundDefault", getColorImageBackgroundDefault());
       dc.appendVarWithNewLine("AliasMode    ", ToStringStaticCoreDraw.aliasMode(getAliasMode()));

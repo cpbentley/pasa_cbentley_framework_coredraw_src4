@@ -4,38 +4,26 @@
  */
 package pasa.cbentley.framework.coredraw.src4.engine;
 
-import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
-import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.framework.coredraw.src4.ctx.CoreDrawCtx;
+import pasa.cbentley.framework.coredraw.src4.ctx.ObjectCDC;
 import pasa.cbentley.framework.coredraw.src4.ctx.ToStringStaticCoreDraw;
 import pasa.cbentley.framework.coredraw.src4.interfaces.IMFont;
+import pasa.cbentley.framework.coredraw.src4.interfaces.ITechFont;
 
 /**
- * J2SE bridge class for the {@link mordan.device.ui.FontAbstract.Font} class of MIDP 2.0 <br>
- * 
- * TODO how to provide antialiased font drawing in this bridge?
- * 
- * <br>
- * Font class is final in J2ME...
- * 
- * 
- * @author
  *
  */
-public abstract class FontAbstract implements IMFont {
+public abstract class FontAbstract extends ObjectCDC implements IMFont {
 
-   protected final CoreDrawCtx cac;
+   protected int face, style, size;
 
-   protected int               face, style, size;
-
-   protected FontAbstract(CoreDrawCtx cac) {
-      this.cac = cac;
-
+   protected FontAbstract(CoreDrawCtx cdc) {
+      super(cdc);
    }
 
-   protected FontAbstract(CoreDrawCtx cac, int face, int style, int size) {
-      this.cac = cac;
+   protected FontAbstract(CoreDrawCtx cdc, int face, int style, int size) {
+      super(cdc);
       this.face = face;
       this.style = style;
       this.size = size;
@@ -60,19 +48,22 @@ public abstract class FontAbstract implements IMFont {
    }
 
    public boolean isBold() {
-      return (style & IMFont.STYLE_BOLD) != 0;
+      return style == STYLE_1_BOLD;
    }
 
    public boolean isItalic() {
-      return (style & IMFont.STYLE_ITALIC) != 0;
+      return style == STYLE_2_ITALIC;
    }
 
-   public boolean isPLAIN() {
-      return style == IMFont.STYLE_PLAIN;
+   public boolean isMonospace() {
+      if (face == ITechFont.FACE_01_MONOSPACE) {
+         return true;
+      }
+      return stringWidth("m") == stringWidth("i");
    }
 
-   public boolean isUnderlined() {
-      return (style & IMFont.STYLE_UNDERLINED) != 0;
+   public boolean isPLain() {
+      return style == STYLE_0_PLAIN;
    }
 
    public abstract int stringWidth(String s);
@@ -80,30 +71,16 @@ public abstract class FontAbstract implements IMFont {
    public abstract int substringWidth(String s, int offset, int length);
 
    //#mdebug
-   public IDLog toDLog() {
-      return toStringGetUCtx().toDLog();
-   }
-
-   public String toString() {
-      return Dctx.toString(this);
-   }
-
    public void toString(Dctx dc) {
-      dc.root(this, FontAbstract.class, "@line5");
+      dc.root(this, FontAbstract.class, 70);
       toStringPrivate(dc);
-   }
-
-   public String toString1Line() {
-      return Dctx.toString1Line(this);
+      super.toString(dc.sup());
    }
 
    public void toString1Line(Dctx dc) {
-      dc.root1Line(this, FontAbstract.class);
+      dc.root1Line(this, FontAbstract.class, 70);
       toStringPrivate(dc);
-   }
-
-   public UCtx toStringGetUCtx() {
-      return cac.getUC();
+      super.toString1Line(dc.sup1Line());
    }
 
    private void toStringPrivate(Dctx dc) {
@@ -111,7 +88,6 @@ public abstract class FontAbstract implements IMFont {
       dc.appendVarWithSpace("size", ToStringStaticCoreDraw.toStringFontSize(size));
       dc.appendVarWithSpace("style", ToStringStaticCoreDraw.toStringFontStyle(style));
    }
-
    //#enddebug
 
 }

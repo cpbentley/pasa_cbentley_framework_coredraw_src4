@@ -56,20 +56,25 @@ public interface IMFont extends ITechFont, IStringable {
 
    public String getName();
 
+   /**
+    * 
+    * @param flag
+    * @return
+    */
    public boolean isSupported(int flag);
 
    /**
-    * <li> {@link ITechFont#FACE_MONOSPACE}
-    * <li> {@link ITechFont#FACE_PROPORTIONAL}
-    * <li> {@link ITechFont#FACE_SYSTEM}
+    * <li> {@link ITechFont#FACE_01_MONOSPACE}
+    * <li> {@link ITechFont#FACE_02_PROPORTIONAL}
+    * <li> {@link ITechFont#FACE_00_SYSTEM}
     * @return
     */
    public int getFace();
 
    /**
-    * <li> {@link ITechFont#STYLE_BOLD}
-    * <li> {@link ITechFont#STYLE_ITALIC}
-    * <li> {@link ITechFont#STYLE_PLAIN}
+    * <li> {@link ITechFont#STYLE_1_BOLD}
+    * <li> {@link ITechFont#STYLE_2_ITALIC}
+    * <li> {@link ITechFont#STYLE_0_PLAIN}
     * @return
     */
    public int getStyle();

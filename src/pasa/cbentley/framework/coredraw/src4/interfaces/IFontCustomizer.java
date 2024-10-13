@@ -19,19 +19,19 @@ public interface IFontCustomizer extends IStringable {
    public void loadFont(String string);
 
    /**
-    * Sets the font family for the logical font {@link ITechFont#FACE_MONOSPACE}
+    * Sets the font family for the logical font {@link ITechFont#FACE_01_MONOSPACE}
     * @param family
     */
    public void setFontFamilyMonospace(String family);
 
    /**
-    * Sets the font family for the logical font {@link ITechFont#FACE_SYSTEM}
+    * Sets the font family for the logical font {@link ITechFont#FACE_00_SYSTEM}
     * @param family
     */
    public void setFontFamilySystem(String family);
 
    /**
-    * Sets the font family for the logical font {@link ITechFont#FACE_PROPORTIONAL}.
+    * Sets the font family for the logical font {@link ITechFont#FACE_02_PROPORTIONAL}.
     * <p>
     * Set to null to go back to the starting configuration value
     * </p>

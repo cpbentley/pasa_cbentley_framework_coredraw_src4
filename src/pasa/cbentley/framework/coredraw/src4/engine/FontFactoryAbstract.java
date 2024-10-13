@@ -86,21 +86,21 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
 
    public IMFont getDefaultFont() {
       if (fontDef == null) {
-         fontDef = getFont(IMFont.FACE_SYSTEM, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+         fontDef = getFont(IMFont.FACE_00_SYSTEM, IMFont.STYLE_0_PLAIN, cdc.getConfigCoreDraw().getDefaultFontSize());
       }
       return fontDef;
    }
 
    public IMFont getDefaultFontMono() {
       if (fontDefMono == null) {
-         fontDefMono = getFont(IMFont.FACE_MONOSPACE, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+         fontDefMono = getFont(IMFont.FACE_01_MONOSPACE, IMFont.STYLE_0_PLAIN, cdc.getConfigCoreDraw().getDefaultFontSize());
       }
       return fontDefMono;
    }
 
    public IMFont getDefaultFontProportional() {
       if (fontDefProp == null) {
-         fontDefProp = getFont(IMFont.FACE_PROPORTIONAL, IMFont.STYLE_PLAIN, IMFont.SIZE_4_LARGE);
+         fontDefProp = getFont(IMFont.FACE_02_PROPORTIONAL, IMFont.STYLE_0_PLAIN, cdc.getConfigCoreDraw().getDefaultFontSize());
       }
       return fontDefProp;
    }
@@ -114,17 +114,17 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
     */
    public IMFont getFontCached(int face, int style, int size) {
       int idFace = 0;
-      if (face == IMFont.FACE_PROPORTIONAL) {
+      if (face == IMFont.FACE_02_PROPORTIONAL) {
          idFace = 1;
-      } else if (face == IMFont.FACE_SYSTEM) {
+      } else if (face == IMFont.FACE_00_SYSTEM) {
          idFace = 2;
       }
       int idStyle = 0;
-      if (style == IMFont.STYLE_PLAIN) {
+      if (style == IMFont.STYLE_0_PLAIN) {
          idStyle = 1;
-      } else if (style == IMFont.STYLE_BOLD) {
+      } else if (style == IMFont.STYLE_1_BOLD) {
          idStyle = 2;
-      } else if (style == IMFont.STYLE_ITALIC) {
+      } else if (style == IMFont.STYLE_2_ITALIC) {
          idStyle = 3;
       }
       int idSize = 0;
@@ -158,7 +158,7 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
 
    public IMFont getFontDebug() {
       if (z_refFontDebug == null)
-         z_refFontDebug = getFont(IMFont.FACE_SYSTEM, IMFont.STYLE_BOLD, IMFont.SIZE_3_MEDIUM);
+         z_refFontDebug = getFont(IMFont.FACE_00_SYSTEM, IMFont.STYLE_1_BOLD, IMFont.SIZE_3_MEDIUM);
       return z_refFontDebug;
    }
 
@@ -181,13 +181,13 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
     */
    public int getFontFaceID(String string) {
       if (customFonts == null) {
-         return IMFont.FACE_SYSTEM;
+         return IMFont.FACE_00_SYSTEM;
       } else {
          int index = customFonts.getFirstStringIndex(string);
          if (index != -1) {
             return customFonts.ints[index];
          }
-         return IMFont.FACE_SYSTEM;
+         return IMFont.FACE_00_SYSTEM;
       }
    }
 
@@ -230,17 +230,17 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
 
    public void setFontFromCache(int face, int style, int size, IMFont font) {
       int idFace = 0;
-      if (face == IMFont.FACE_PROPORTIONAL) {
+      if (face == IMFont.FACE_02_PROPORTIONAL) {
          idFace = 1;
-      } else if (face == IMFont.FACE_SYSTEM) {
+      } else if (face == IMFont.FACE_00_SYSTEM) {
          idFace = 2;
       }
       int idStyle = 0;
-      if (style == IMFont.STYLE_PLAIN) {
+      if (style == IMFont.STYLE_0_PLAIN) {
          idStyle = 1;
-      } else if (style == IMFont.STYLE_BOLD) {
+      } else if (style == IMFont.STYLE_1_BOLD) {
          idStyle = 2;
-      } else if (style == IMFont.STYLE_ITALIC) {
+      } else if (style == IMFont.STYLE_2_ITALIC) {
          idStyle = 3;
       }
       int idSize = 0;
@@ -265,10 +265,17 @@ public abstract class FontFactoryAbstract extends ObjectCDC implements IFontFact
       return f;
    }
 
+   /**
+    * Create a new instance. Call here knows its not coming from cache
+    * @param face
+    * @param style
+    * @param size
+    * @return
+    */
    protected abstract IMFont createFont(int face, int style, int size);
 
    /**
-    * Sets the font for {@link ITechFont#FACE_SYSTEM}
+    * Sets the font for {@link ITechFont#FACE_00_SYSTEM}
     */
    public void setFontName(String name) {
       if (cdc.hasFeatureSupport(ITechHostFeatureDraw.SUP_ID_06_CUSTOM_FONTS)) {

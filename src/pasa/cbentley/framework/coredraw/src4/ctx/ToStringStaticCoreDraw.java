@@ -65,11 +65,11 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
    
    public static String toStringFontFace(int face) {
       switch (face) {
-         case ITechFont.FACE_MONOSPACE:
+         case ITechFont.FACE_01_MONOSPACE:
             return "Mono";
-         case ITechFont.FACE_PROPORTIONAL:
+         case ITechFont.FACE_02_PROPORTIONAL:
             return "Proportional";
-         case ITechFont.FACE_SYSTEM:
+         case ITechFont.FACE_00_SYSTEM:
             return "System";
          default:
             return "Unknown " + face;
@@ -97,14 +97,12 @@ public class ToStringStaticCoreDraw extends ToStringStaticBase {
 
    public static String toStringFontStyle(int style) {
       switch (style) {
-         case ITechFont.STYLE_BOLD:
+         case ITechFont.STYLE_1_BOLD:
             return "Bold";
-         case ITechFont.STYLE_ITALIC:
+         case ITechFont.STYLE_2_ITALIC:
             return "Italic";
-         case ITechFont.STYLE_PLAIN:
+         case ITechFont.STYLE_0_PLAIN:
             return "Plain";
-         case ITechFont.STYLE_UNDERLINED:
-            return "Underlined";
          default:
             return "Unknown " + style;
       }
