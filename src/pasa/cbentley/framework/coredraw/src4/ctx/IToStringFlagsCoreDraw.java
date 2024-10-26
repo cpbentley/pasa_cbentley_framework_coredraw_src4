@@ -1,16 +1,14 @@
 package pasa.cbentley.framework.coredraw.src4.ctx;
 
-import pasa.cbentley.core.src4.ctx.IToStringFlags;
-import pasa.cbentley.core.src4.interfaces.IEvents;
-import pasa.cbentley.core.src4.interfaces.IFlags;
+import pasa.cbentley.core.src4.interfaces.IToStringFlags;
 
 /**
- * Definition for {@link CoreDrawCtx} of flags following the {@link IFlags} framework.
+ * Definition for {@link CoreDrawCtx} of flags following the {@link IToStringFlags} framework.
  * 
  * @author Charles Bentley
  *
  */
-public interface IFlagToStringCoreDraw extends IToStringFlags {
+public interface IToStringFlagsCoreDraw extends IToStringFlags {
 
    /**
     * 

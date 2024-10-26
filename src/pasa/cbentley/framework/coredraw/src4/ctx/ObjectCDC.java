@@ -4,6 +4,7 @@ import pasa.cbentley.core.src4.ctx.UCtx;
 import pasa.cbentley.core.src4.logging.Dctx;
 import pasa.cbentley.core.src4.logging.IDLog;
 import pasa.cbentley.core.src4.logging.IStringable;
+import pasa.cbentley.core.src4.logging.LogParameters;
 
 public class ObjectCDC implements IStringable {
 
@@ -12,7 +13,7 @@ public class ObjectCDC implements IStringable {
    public ObjectCDC(CoreDrawCtx cdc) {
       this.cdc = cdc;
    }
-   
+
    //#mdebug
    public IDLog toDLog() {
       return toStringGetUCtx().toDLog();
@@ -23,7 +24,7 @@ public class ObjectCDC implements IStringable {
    }
 
    public void toString(Dctx dc) {
-      dc.root(this, ObjectCDC.class, "@line5");
+      dc.root(this, ObjectCDC.class, 27);
       toStringPrivate(dc);
    }
 
@@ -31,20 +32,27 @@ public class ObjectCDC implements IStringable {
       return Dctx.toString1Line(this);
    }
 
-   private void toStringPrivate(Dctx dc) {
-
+   public void toString1Line(Dctx dc) {
+      dc.root1Line(this, ObjectCDC.class, 36);
+      toStringPrivate(dc);
    }
 
-   public void toString1Line(Dctx dc) {
-      dc.root1Line(this, ObjectCDC.class);
-      toStringPrivate(dc);
+   public LogParameters toStringGetLine(Class cl, String method, int value) {
+      return toStringGetUCtx().toStringGetLine(cl, method, value);
+   }
+
+   public String toStringGetLine(int value) {
+      return toStringGetUCtx().toStringGetLine(value);
    }
 
    public UCtx toStringGetUCtx() {
       return cdc.getUC();
    }
 
+   private void toStringPrivate(Dctx dc) {
+
+   }
+
    //#enddebug
-   
 
 }

@@ -50,6 +50,19 @@ public interface IGraphics extends IStringable, ITechGraphics {
 
    public abstract void drawSubstring(String str, int offset, int len, int x, int y, int anchor);
 
+   /**
+    * Is the feature enable for this specific {@link IGraphics} instance
+    * 
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_03_OPEN_GL}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_04_ALIAS}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_05_ALIAS_TEXT}
+    * <li> {@link ITechHostFeatureDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
+    * 
+    * @param featureID
+    * @return true if feature could be enabled
+    */
+   public boolean featureEnable(int featureID, boolean enable);
+
    public abstract void fillArc(int x, int y, int w, int h, int sa, int aa);
 
    public abstract void fillRect(int x, int y, int width, int height);
@@ -120,19 +133,6 @@ public interface IGraphics extends IStringable, ITechGraphics {
    public boolean hasFeatureEnabled(int featureID);
 
    /**
-    * Is the feature enable for this specific {@link IGraphics} instance
-    * 
-    * <li> {@link ITechHostFeatureDraw#SUP_ID_03_OPEN_GL}
-    * <li> {@link ITechHostFeatureDraw#SUP_ID_04_ALIAS}
-    * <li> {@link ITechHostFeatureDraw#SUP_ID_05_ALIAS_TEXT}
-    * <li> {@link ITechHostFeatureDraw#SUP_ID_10_TRANSPARENT_BACKGROUND}
-    * 
-    * @param featureID
-    * @return true if feature could be enabled
-    */
-   public boolean featureEnable(int featureID, boolean enable);
-
-   /**
     * 
     * @param x
     * @param y
@@ -173,9 +173,6 @@ public interface IGraphics extends IStringable, ITechGraphics {
    /**
     * translate needs to remember the current translation, since AWT doesn't provide getTranslate methods.
     */
-   public abstract void translate(int x, int y);
+   public abstract void setTranslate(int x, int y);
 
-   //#mdebug
-
-   //#enddebug
 }
